@@ -7,6 +7,7 @@ Route::get('admin',function(){
 	return view('auth.admin_login');
 })->name('admin');
 
+
 Route::post('admin-login',function(Request $request){
     // $this->validate($request, [
     //     'email'   => 'required|email',
@@ -24,6 +25,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('user', 'DashboardController@allUser')->name('user');
     Route::post('search-user', 'DashboardController@searchUser')
         ->name('search-user');
+    Route::get('sohp/pending','DashboardController@pendingShop')    
+        ->name('pending-shop');
+    Route::get('sohp/details/{id}','DashboardController@shopDetails')    
+        ->name('details'); 
+    Route::get('approve-reject','DashboardController@approveReject')
+        ->name('approve-reject');
     Route::resource('facility', 'FacilityController');
     Route::resource('category', 'CategoryController');
     Route::resource('division', 'DivisionController');
@@ -35,7 +42,6 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
 Route::get('admin-logout',function(){
 	Auth::guard('admin')->logout();
-    Auth::guard('web')->logout();
     session()->flush();
     session()->regenerate();
     return redirect()->route('admin')->with('message','Admin Logout Successfully');

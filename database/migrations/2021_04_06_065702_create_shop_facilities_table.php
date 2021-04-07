@@ -16,7 +16,7 @@ class CreateShopFacilitiesTable extends Migration
         Schema::create('shop_facilities', function (Blueprint $table) {
             $table->id();
             $table->integer('shop_id');
-            $table->string('facility');
+            $table->string('facility_id');
             $table->timestamps();
         });
     }

@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('token')->nullable();
             $table->integer('online_status')->default(0);
+            $table->integer('followers')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

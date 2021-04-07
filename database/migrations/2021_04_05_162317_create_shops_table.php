@@ -34,6 +34,7 @@ class CreateShopsTable extends Migration
             $table->string('discount_qrcode')->nullable();
             $table->string('lat')->nullable();
             $table->string('lan')->nullable();
+            $table->integer('approve_status')->default(0);
             $table->timestamps();
         });
     }

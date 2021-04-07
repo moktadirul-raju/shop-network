@@ -9,6 +9,7 @@
 
   <ul class="app-menu">
     <li><a class="app-menu__item {{ Request::is('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+    <li><a class="app-menu__item {{ Request::is('admin/shop/pending') ? 'active' : '' }}" href="{{ route('admin.pending-shop') }}"><i class="app-menu__icon fa fa-pencil"></i><span class="app-menu__label">Pending Request({{ DB::table('shops')->where('approve_status',0)->count() }})</span></a></li>
     <li><a class="app-menu__item {{ Request::is('admin/user') ? 'active' : '' }}" href="{{ route('admin.user') }}"><i class="app-menu__icon fa fa-user"></i><span class="app-menu__label">Users</span></a></li>
 
     <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Basic Elements</span><i class="treeview-indicator fa fa-angle-right"></i></a>

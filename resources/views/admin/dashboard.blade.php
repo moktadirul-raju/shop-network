@@ -26,16 +26,16 @@
         <div class="col-md-6 col-lg-3">
           <div class="widget-small warning coloured-icon"><i class="icon fa fa-files-o fa-3x"></i>
             <div class="info">
-              <h4>Total Shop</h4>
-              <p><b>{{ DB::table('shops')->count() }}</b></p>
+              <h4><a href="{{ route('admin.pending-shop') }}">Pending</a></h4>
+              <p><b>{{ DB::table('shops')->where('approve_status',0)->count() }}</b></p>
             </div>
           </div>
         </div>
         <div class="col-md-6 col-lg-3">
           <div class="widget-small danger coloured-icon"><i class="icon fa fa-star fa-3x"></i>
             <div class="info">
-              <h4>Stars</h4>
-              <p><b>500</b></p>
+              <h4>Total</h4>
+              <p><b>{{ DB::table('shops')->count() }}</b></p>
             </div>
           </div>
         </div>

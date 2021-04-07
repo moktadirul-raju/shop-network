@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
+use Intervention\Image\Facades\Image;
 use App\Model\Shop;
 use App\Model\Wishlist;
+use App\Model\ShopImage;
 
 class ShopActivityController extends Controller
 {
@@ -30,6 +32,9 @@ class ShopActivityController extends Controller
 	}
 
     public function addShop(Request $request){
+        if(Shop::where('user_id',Auth::id())->exists()){
+            return response()->json(['message'=>'Can not add multiple shop']);
+        }
         $shop = new Shop();
         $shop->user_id = Auth::id();
         $shop->category_id = $request->category_id;
@@ -45,11 +50,17 @@ class ShopActivityController extends Controller
         $shop->description = $request->description;
         $shop->min_price = $request->min_price;
         $shop->max_price = $request->max_price;
-        $shop->discount = $request->discount;
+        if($request->discount){
+            $shop->discount = $request->discount;
+            $url =  file_get_contents('https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl='.urlencode($request->discount));
+            $qrCode = 'images/qrcode/'.auth()->user()->mobile.'.jpg';
+            file_put_contents($qrCode,$url);
+            $shop->discount_qrcode = $qrCode;
+        }
         $shop->lat = $request->lat;
         $shop->lan = $request->lan;
         $shop->save();
-        $hotel->facilities()->sync($request->facilities);
+        $shop->facilities()->sync($request->facilities);
         if($request->hasFile('images')) {
             foreach($request->file('images') as $image){
                 $imageName = time().$image->getClientOriginalName();
