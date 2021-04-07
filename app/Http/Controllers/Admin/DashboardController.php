@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Model\User;
 
 class DashboardController extends Controller
 {
@@ -17,6 +18,11 @@ class DashboardController extends Controller
     }
 
     public function allUser(){
-    	return view('admin.all_user');
+    	$users = User::all();
+    	return view('admin.all_user',compact('users'));
+    }
+
+    public function searchUser(Request $request){
+        return $request;          
     }
 }

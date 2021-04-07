@@ -8,6 +8,13 @@
 
 @section('content')
 <div class="col-md-12">
+  <form action="{{ route('admin.search-user') }}" method="POST" class="form-inline text-right">
+        @csrf
+        <div class="form-group mb-2">
+            <input type="test" name="query" class="form-control" placeholder="Name/Email/Mobile">
+        </div>
+        &nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i>&nbsp;Search</button>
+    </form>
   <div class="tile">
     <div class="tile-body">
       <div class="table-responsive">
@@ -15,30 +22,28 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
+            <th>Profile</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Join</th>
           </tr>
         </thead>
         <tbody>
+          @foreach($users as $user)
           <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
+            <td>{{ $user->name }}</td>
+            <td>
+              @if($user->image != null)
+                <img src="{{ asset($user->image) }}" class="img-responsive" alt="Image" style="height: 50px;width: 50px;">
+              @else 
+                <img src="{{ asset('assets/images/avator.png') }}" class="img-responsive" alt="Image" style="height: 50px;width: 50px;">  
+              @endif  
+            </td>
+            <td>{{ $user->mobile }}</td>
+            <td>{{ $user->email }}</td>
+            <td>{{ $user->created_at != null ? $user->created_at->format('d M y') : '' }}</td>
           </tr>
-          <tr>
-            <td>Garrett Winters</td>
-            <td>Accountant</td>
-            <td>Tokyo</td>
-            <td>63</td>
-            <td>2011/07/25</td>
-            <td>$170,750</td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
       </div>

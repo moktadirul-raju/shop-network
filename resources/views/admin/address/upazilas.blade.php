@@ -1,151 +1,112 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title', 'Upazila Page')
 @push('css')
 
 @endpush
 
 @section('content')
-    <section id="about" class="about">
-      <div class="container">
-        <div class="section-title">
-          <h2>Upazila ( {{ $upazilas->count() }})</h2>
+<div class="col-md-12">
+    <div class="tile">
+        <div class="tile-header">
+            <h5 style="float: left;">Upazilas Of {{ $district->english_name }} </h5>
+            <span style="float: right;">
+                 @if(isset($upazila))
+         <form action="{{ route('admin.upazila.update',$upazila->id) }}" method="POST" class="form-inline">
+        @csrf
+        @method('PUT')
+        <div class="form-group mb-2">
+            <input type="text" name="english_name" class="form-control" value="{{ $upazila->english_name }}">
+            <input type="text" name="bangla_name" class="form-control" value="{{ $upazila->bangla_name }}">
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="list-group">
-                    @include('admin.menus')
-                </div>
+        &nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-edit"></i>&nbsp;Update</button>
+    </form>
+    @else
+        <form action="{{ route('admin.upazila.store') }}" method="POST" class="form-inline text-right">
+            @csrf
+            <div class="form-group mb-2">
+                <input type="hidden" name="district_id" value="{{ $district->id }}">
+                <input type="text" name="english_name" class="form-control" placeholder="English Name">
+                <input type="text" name="bangla_name" class="form-control" placeholder="Bangla Name">
             </div>
-            <div class="col-md-9">
-                @if(Session::has('message'))
-                    <p class="alert alert-{{ Session::get('type') }}">{{ Session::get('message') }}</p>
-                @endif
-                 @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <p class="alert alert-danger">{{ $error }}</p>
-                    @endforeach
-                @endif
-                @if(isset($upazila))
-                    <form action="{{ route('admin.upazila.update',$upazila->id) }}" method="POST" class="form-inline">
-                    @csrf
-                    @method('PUT')
-                    <div class="form-group mb-2">
-                        <select name="district_id" id="district" class="form-control">
-                                <option value="{{ $upazila->district->id }}">{{ $upazila->district->english_name }}</option>
-                        </select>
-                        <input type="test" name="english_name" class="form-control" value="{{ $upazila->english_name }}">
-                        <input type="test" name="bangla_name" class="form-control" value="{{ $upazila->bangla_name }}">
-                    </div>
-                    &nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-edit"></i>&nbsp;Update</button>
-                </form>
-                @else
-                    <form action="{{ route('admin.upazila.store') }}" method="POST" class="form-inline">
+            &nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+        </form>
+    @endif
+            </span>
+        </div>
+        <div class="tile-body">
+       <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Serial No.</th>
+                <th>English Name</th>
+                <th>Bangla Name</th>
+                
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($upazilas as $upazila)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $upazila->english_name }}</td>
+                <td>{{ $upazila->bangla_name }}</td>
+                <td>
+                    <a href="{{ route('admin.upazila.edit',$upazila->id) }}" class="btn btn-info">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <button class="btn btn-danger waves-effect" type="button" onclick="deleteItem({{ $upazila->id }})">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                    <form id="delete-form-{{ $upazila->id }}" action="{{ route('admin.upazila.destroy',$upazila->id) }}" method="POST" style="display: none;">
                         @csrf
-                        <div class="form-group mb-2">
-                            <select name="district_id" id="district" class="form-control">
-                                <option value="">Select District</option>
-                            </select>
-                            <input type="test" name="english_name" class="form-control" placeholder="English Name">
-                            <input type="test" name="bangla_name" class="form-control" placeholder="Bangla Name">
-                        </div>
-                        &nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+                        @method('DELETE')
                     </form>
-                @endif
-                <table class="table table-bordered table-striped table-responsive">
-                    <thead>
-                        <tr class="text-left nowrap">
-                            <th>Serial No.</th>
-                            <th>Division Name</th>
-                            <th>District Name</th>
-                            <th>English Name</th>
-                            <th>Bangla Name</th>
-                            <th>Website</th>
-                            <th>Unions</th>
-                            <th>View</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($upazilas as $upazila)
-                        <tr class="text-left nowrap">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $upazila->district->division->english_name }}</td>
-                            <td>{{ $upazila->district->english_name }}</td>
-                            <td>{{ $upazila->english_name }}</td>
-                            <td>{{ $upazila->bangla_name }}</td>
-                            <td>{{ $upazila->url }}</td>
-                            <td>{{ $upazila->unions->count() }}</td>
-                            <td>
-                                <a class="btn btn-success" href="{{ route('admin.upazila.show',$upazila->id) }}">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.upazila.edit',$upazila->id) }}" class="btn btn-info">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <a onclick="takePermission()" class="btn btn-danger" type="submit"><i class="fa fa-trash"></i></a>
-                                 <form action="{{ route('admin.upazila.destroy',$upazila->id) }}" method="POST" id="upazila-delete">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
 
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table> 
+    
         </div>
-      </div>
-    </section><!-- End About Us Section -->
-
+    </div>  
+</div>
 @endsection
 
 @push('js')
 <script>
-    function takePermission(){
-        confirm('Are you suer');
-        document.getElementById('upazila-delete').submit();
+   function deleteItem(id) {
+      swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          confirmButtonClass: 'btn btn-success',
+          cancelButtonClass: 'btn btn-danger',
+          buttonsStyling: false,
+          reverseButtons: true
+      }).then((result) => {
+          if (result.value) {
+              event.preventDefault();
+              document.getElementById('delete-form-'+id).submit();
+          } else if (
+              // Read more about handling dismissals
+          result.dismiss === swal.DismissReason.cancel
+          ) {
+              swal(
+                  'Cancelled',
+                  'Your data is safe :)',
+                  'error'
+              )
+          }
+      })
     }
 
-    function getDistrict() {
-        $('#district').find('option').remove().end().append('<option value="">Select District</option>');
-        var id = document.getElementById('division').value;
-        axios.get(`/api/districts/${id}`)
-            .then(function (response) {
-                var list = response.data.data;
-                var select = document.getElementById("district");
-                for (i = 0; i < list.length; i++) {
-                    var el = document.createElement("option");
-                    var districts = list[i];
-                    var districtName = districts.english_name;
-                    var districtId = districts.id;
-                    el.textContent = districtName;
-                    el.value = districtId;
-                    select.appendChild(el);
-                }
-            });
-    }
-    function getUpazila() {
-        $('#thana').find('option').remove().end().append('<option value="">Select Thana</option>');
-        var id = document.getElementById('district').value;
-        axios.get(`/api/upazilas/${id}`)
-            .then(function (response) {
-                var list = response.data.data;
-                var select = document.getElementById("thana");
-                for (i = 0; i < list.length; i++) {
-                    var el = document.createElement("option");
-                    var thanas = list[i];
-                    var thanaName = thanas.THANA_NAME;
-                    var thanaId = thanas.THANA_ID;
-                    el.textContent = thanaName;
-                    el.value = thanaId;
-                    select.appendChild(el);
-                }
-            });
-    }
-
+ 
 </script>
 @endpush
 

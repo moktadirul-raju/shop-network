@@ -7,6 +7,7 @@ use App\Model\Division;
 use App\Model\Upazila;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class DistrictController extends Controller
 {
@@ -18,8 +19,7 @@ class DistrictController extends Controller
     public function index()
     {
         $districts = District::all();
-        $divisions = Division::all();
-        return view('admin.address.district',compact('divisions','districts'));
+        return view('admin.address.district',compact('districts'));
     }
 
     /**
@@ -50,7 +50,8 @@ class DistrictController extends Controller
         $district->english_name = $request->english_name;
         $district->bangla_name = $request->bangla_name;
         $district->save();
-        return redirect()->route('admin.district.index')->with(['message' => 'District Added Successfully', 'type' => 'info']);
+        Toastr::info('District Added Successfully');
+        return redirect()->route('admin.division.show',$district->division_id);
     }
 
     /**
@@ -62,8 +63,8 @@ class DistrictController extends Controller
     public function show($id)
     {
         $upazilas = Upazila::where('district_id',$id)->orderBy('district_id','DESC')->get();
-        $divisions = Division::all();
-        return view('admin.address.upazilas',compact('upazilas','divisions'));
+        $district = District::find($id);
+        return view('admin.address.upazilas',compact('upazilas','district'));
     }
 
     /**
@@ -75,9 +76,9 @@ class DistrictController extends Controller
     public function edit($id)
     {
         $district = District::find($id);
-        $divisions = Division::all();
-        $districts = District::all();
-        return view('admin.address.district',compact('divisions','districts','district'));
+        $division = Division::find($district->division_id);
+        $districts = District::where('division_id',$district->division_id)->get();
+        return view('admin.address.district',compact('districts','district','division'));
     }
 
     /**
@@ -90,16 +91,15 @@ class DistrictController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'division_id' => 'required',
             'english_name' => 'required',
         ]);
 
         $district = District::find($id);
-        $district->division_id = $request->division_id;
         $district->english_name = $request->english_name;
         $district->bangla_name = $request->bangla_name;
         $district->save();
-        return redirect()->route('admin.district.index')->with(['message' => 'District Update Successfully', 'type' => 'info']);
+        Toastr::info('District Update Successfully');
+        return redirect()->route('admin.division.show',$district->division_id);
     }
 
     /**
@@ -110,7 +110,8 @@ class DistrictController extends Controller
      */
     public function destroy($id)
     {
-        //District::find($id)->delete();
-        return redirect()->route('admin.district.index')->with(['message' => 'Apadoto delete bondho ache,h', 'type' => 'danger']);
+        District::find($id)->delete();
+        Toastr::error('District Delete Successfully');
+        return redirect()->back();
     }
 }

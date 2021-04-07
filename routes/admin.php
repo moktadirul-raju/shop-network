@@ -22,9 +22,14 @@ Route::post('admin-login',function(Request $request){
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('user', 'DashboardController@allUser')->name('user');
+    Route::post('search-user', 'DashboardController@searchUser')
+        ->name('search-user');
+    Route::resource('facility', 'FacilityController');
+    Route::resource('category', 'CategoryController');
     Route::resource('division', 'DivisionController');
     Route::resource('district', 'DistrictController');
     Route::resource('upazila', 'UpazilaController');
+    Route::resource('notification', 'NotificationController');
 });
 
 

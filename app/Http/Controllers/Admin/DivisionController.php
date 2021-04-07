@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Division;
 use App\Model\District;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class DivisionController extends Controller
 {
@@ -43,7 +44,8 @@ class DivisionController extends Controller
         $division->english_name = $request->english_name;
         $division->bangla_name = $request->bangla_name;
         $division->save();
-        return redirect()->route('admin.division.index')->with(['message'=>'Division Added Successfully','type'=>'success']);
+        Toastr::success('Division Added Successfully');
+        return redirect()->route('admin.division.index');
     }
 
     /**
@@ -98,7 +100,8 @@ class DivisionController extends Controller
      */
     public function destroy($id)
     {
-        //Division::find($id)->delete();
-        return redirect()->route('admin.division.index')->with(['message' => 'Apadoto delete bondho ache', 'type' => 'danger']);
+        Division::find($id)->delete();
+        Toastr::error('Division Deleted Successfully');
+        return redirect()->route('admin.division.index');
     }
 }

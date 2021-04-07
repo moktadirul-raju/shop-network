@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/css/main.css') }}">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- toastr -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     @stack('css')
   </head>
   <body class="app sidebar-mini rtl">
@@ -35,11 +37,11 @@
     </aside>
 
     <main class="app-content">
-      <div class="app-title">
+      {{-- <div class="app-title">
         <div>
           <h1>@yield('page-title','')</h1>
         </div>
-      </div>
+      </div> --}}
       <div class="row">
         @yield('content')
       </div>
@@ -55,6 +57,24 @@
     <!-- Data table plugin-->
     <script type="text/javascript" src="{{ asset('assets/admin/js/plugins/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/admin/js/plugins/dataTables.bootstrap.min.js') }}"></script>
+    {{-- Axios --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
+    {{--  Toaster  --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    {!! Toastr::message() !!}
+    <script>
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+                  toastr.error('{{ $error }}','Error',{
+                      closeButton:true,
+                      progressBar:true,
+                   });
+            @endforeach
+        @endif
+      </script>
+
     @stack('js')
   </body>
 </html>
