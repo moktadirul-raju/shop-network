@@ -15,6 +15,7 @@ class NotificationController extends Controller
     }
 
     public function store(Request $request){
+        $this->validate($request,['title'=>'required']);
     	$notification = new Notification();
     	$notification->title = $request->title;
     	$notification->description = $request->description;
@@ -24,6 +25,7 @@ class NotificationController extends Controller
     }
 
     public function update(Request $request, $id){
+        $this->validate($request,['title'=>'required']);
     	$notification = Notification::findOrFail($id);
     	$notification->title = $request->title;
     	$notification->description = $request->description;

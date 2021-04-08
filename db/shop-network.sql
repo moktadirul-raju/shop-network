@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 07, 2021 at 06:30 AM
+-- Generation Time: Apr 08, 2021 at 04:12 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -42,7 +42,29 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `mobile`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'Super Admin', 'admin@admin.com', '123456789', '$2y$10$f9/bRE36MsHe9PyTfbk1IOO1kQHGVjHTjlcmGaeMqdxzm6hVsQ1QK', NULL, NULL);
+(1, 'Super Admin', 'admin@admin.com', '123456789', '$2y$10$5.zC6um64tjmJYZ/kTdI6eFEP27O6mxQeh7lOEHudEBn0WMKVXKge', NULL, '2021-04-08 02:19:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banners`
+--
+
+CREATE TABLE `banners` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `banners`
+--
+
+INSERT INTO `banners` (`id`, `title`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(2, 'Great offer g h', '1617862789big-sale-special-offer-banner-template_7547-308.jpg', 0, '2021-04-08 00:19:49', '2021-04-08 01:56:33');
 
 -- --------------------------------------------------------
 
@@ -79,6 +101,13 @@ CREATE TABLE `comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `shop_id`, `comment`, `created_at`, `updated_at`) VALUES
+(1, 2, 7, 'Nice activity', '2021-04-08 10:10:35', '2021-04-08 10:10:35');
 
 -- --------------------------------------------------------
 
@@ -232,6 +261,27 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `follows`
+--
+
+CREATE TABLE `follows` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `shop_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `follows`
+--
+
+INSERT INTO `follows` (`id`, `user_id`, `shop_id`, `created_at`, `updated_at`) VALUES
+(4, 2, 8, '2021-04-08 07:10:08', '2021-04-08 07:10:08');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -261,7 +311,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (14, '2021_04_05_173832_create_upazilas_table', 2),
 (16, '2021_04_05_162317_create_shops_table', 3),
 (17, '2021_04_06_065621_create_shop_images_table', 3),
-(18, '2021_04_06_065702_create_shop_facilities_table', 3);
+(18, '2021_04_06_065702_create_shop_facilities_table', 3),
+(19, '2021_04_08_052324_create_banners_table', 4),
+(20, '2021_04_08_125532_create_follows_table', 5);
 
 -- --------------------------------------------------------
 
@@ -273,9 +325,18 @@ CREATE TABLE `notifications` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `action` int(11) DEFAULT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `action`, `title`, `description`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Great offer', 'Offer running', '2021-04-07 22:10:22', '2021-04-07 22:10:22'),
+(2, NULL, 'Great offer g h', 'dfgfdgdfgdfg', '2021-04-08 02:20:57', '2021-04-08 02:21:03');
 
 -- --------------------------------------------------------
 
@@ -305,6 +366,14 @@ CREATE TABLE `reviews` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `shop_id`, `rating`, `review`, `created_at`, `updated_at`) VALUES
+(1, 2, 7, '5', 'Nice activity', '2021-04-08 09:55:39', '2021-04-08 09:55:39'),
+(2, 2, 7, '5', 'Nice activity', '2021-04-08 09:55:49', '2021-04-08 09:55:49');
+
 -- --------------------------------------------------------
 
 --
@@ -316,7 +385,7 @@ CREATE TABLE `shops` (
   `user_id` int(11) NOT NULL,
   `category_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `established_date` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `established_date` date DEFAULT NULL,
   `division_id` int(11) DEFAULT NULL,
   `district_id` int(11) DEFAULT NULL,
   `upazila_id` int(11) DEFAULT NULL,
@@ -332,9 +401,19 @@ CREATE TABLE `shops` (
   `discount_qrcode` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lat` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lan` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `approve_status` int(191) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shops`
+--
+
+INSERT INTO `shops` (`id`, `user_id`, `category_id`, `title`, `established_date`, `division_id`, `district_id`, `upazila_id`, `address`, `phone`, `fax`, `email`, `website`, `description`, `min_price`, `max_price`, `discount`, `discount_qrcode`, `lat`, `lan`, `approve_status`, `created_at`, `updated_at`) VALUES
+(7, 4, '2', 'Electronics shop', '2012-12-12', 1, 1, 1, 'ghatarchor', '123456789', NULL, 'grocery@mail.com', NULL, 'grocery', 10.00, 2000.00, 20.00, 'images/qrcode/01889967517.jpg', NULL, NULL, 1, '2021-04-07 09:57:52', '2021-04-08 01:49:00'),
+(8, 1, '2', 'Cloth shop', '2012-12-12', 1, 1, 1, 'ghatarchor', '123456789', NULL, 'grocery@mail.com', NULL, 'grocery', 10.00, 2000.00, 20.00, 'images/qrcode/01889967514.jpg', NULL, NULL, 1, '2021-04-07 09:59:46', '2021-04-07 12:23:01'),
+(9, 2, '3', 'Grocery shop', '2012-12-12', 1, 1, 1, 'ghatarchor', '123456789', NULL, 'grocery@mail.com', NULL, 'grocery', 10.00, 2000.00, 20.00, 'images/qrcode/01889967515.jpg', NULL, NULL, 2, '2021-04-07 10:00:09', '2021-04-08 02:07:58');
 
 -- --------------------------------------------------------
 
@@ -345,10 +424,22 @@ CREATE TABLE `shops` (
 CREATE TABLE `shop_facilities` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `shop_id` int(11) NOT NULL,
-  `facility` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `facility_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shop_facilities`
+--
+
+INSERT INTO `shop_facilities` (`id`, `shop_id`, `facility_id`, `created_at`, `updated_at`) VALUES
+(5, 1, '7', '2021-04-07 09:57:52', '2021-04-07 09:57:52'),
+(6, 2, '7', '2021-04-07 09:57:52', '2021-04-07 09:57:52'),
+(7, 1, '8', '2021-04-07 09:59:46', '2021-04-07 09:59:46'),
+(8, 2, '8', '2021-04-07 09:59:46', '2021-04-07 09:59:46'),
+(9, 1, '9', '2021-04-07 10:00:09', '2021-04-07 10:00:09'),
+(10, 2, '9', '2021-04-07 10:00:09', '2021-04-07 10:00:09');
 
 -- --------------------------------------------------------
 
@@ -363,6 +454,18 @@ CREATE TABLE `shop_images` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shop_images`
+--
+
+INSERT INTO `shop_images` (`id`, `shop_id`, `image`, `created_at`, `updated_at`) VALUES
+(3, 7, 'images/shop/1617811072gettyimages-1141999659-612x612.jpg', '2021-04-07 09:57:52', '2021-04-07 09:57:52'),
+(4, 7, 'images/shop/1617811072photo-1534723452862-4c874018d66d.jpg', '2021-04-07 09:57:53', '2021-04-07 09:57:53'),
+(5, 8, 'images/shop/1617811187gettyimages-1141999659-612x612.jpg', '2021-04-07 09:59:47', '2021-04-07 09:59:47'),
+(6, 8, 'images/shop/1617811187photo-1534723452862-4c874018d66d.jpg', '2021-04-07 09:59:47', '2021-04-07 09:59:47'),
+(7, 9, 'images/shop/1617811209gettyimages-1141999659-612x612.jpg', '2021-04-07 10:00:09', '2021-04-07 10:00:09'),
+(8, 9, 'images/shop/1617811210photo-1534723452862-4c874018d66d.jpg', '2021-04-07 10:00:10', '2021-04-07 10:00:10');
 
 -- --------------------------------------------------------
 
@@ -893,6 +996,7 @@ CREATE TABLE `users` (
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `online_status` int(191) NOT NULL DEFAULT '0',
+  `followers` int(191) NOT NULL DEFAULT '0',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -902,11 +1006,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `nickname`, `email`, `mobile`, `image`, `email_verified_at`, `password`, `token`, `online_status`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Mr. Demo', NULL, 'demo@gmail.com', '01889967514', NULL, NULL, '$2y$10$eJoNwTCJHBhj.6Uu0tKjCu/8GMgXJclHgIScn2AwxeDwqSWQ5pZIC', NULL, 0, NULL, NULL, NULL),
-(2, 'Raju', NULL, NULL, '01889967515', NULL, NULL, '$2y$10$RS9ofgBCV/Oet7INrIgsL.KUgNQrAqdMgNUN.YGjVvoWdfk/orTBu', NULL, 0, NULL, '2021-04-05 23:41:04', '2021-04-05 23:41:04'),
-(3, 'Raju', NULL, NULL, '01889967516', NULL, NULL, '$2y$10$2sYxV74ZqBn4h4hNovpwDuKeRhNXgcQncm743dtnN6FkpNzIBirgW', NULL, 0, NULL, '2021-04-05 23:41:41', '2021-04-05 23:41:41'),
-(4, 'Raju', NULL, NULL, '01889967517', NULL, NULL, '$2y$10$L1prMnmhQVlRdTyQK4zmGe1FA8ygIMgJWmpapXPiA1jL5SNR.FH/.', NULL, 1, NULL, '2021-04-05 23:42:05', '2021-04-06 09:49:25');
+INSERT INTO `users` (`id`, `name`, `nickname`, `email`, `mobile`, `image`, `email_verified_at`, `password`, `token`, `online_status`, `followers`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Mr. Demo', NULL, 'demo@gmail.com', '01889967514', NULL, NULL, '$2y$10$eJoNwTCJHBhj.6Uu0tKjCu/8GMgXJclHgIScn2AwxeDwqSWQ5pZIC', NULL, 1, 0, NULL, NULL, '2021-04-07 09:59:29'),
+(2, 'Raju', NULL, NULL, '01889967515', NULL, NULL, '$2y$10$RS9ofgBCV/Oet7INrIgsL.KUgNQrAqdMgNUN.YGjVvoWdfk/orTBu', NULL, 1, 0, NULL, '2021-04-05 23:41:04', '2021-04-07 09:59:54'),
+(3, 'Raju', NULL, NULL, '01889967516', NULL, NULL, '$2y$10$2sYxV74ZqBn4h4hNovpwDuKeRhNXgcQncm743dtnN6FkpNzIBirgW', NULL, 0, 0, NULL, '2021-04-05 23:41:41', '2021-04-05 23:41:41'),
+(4, 'Raju', NULL, NULL, '01889967517', NULL, NULL, '$2y$10$L1prMnmhQVlRdTyQK4zmGe1FA8ygIMgJWmpapXPiA1jL5SNR.FH/.', NULL, 1, 0, NULL, '2021-04-05 23:42:05', '2021-04-06 09:49:25');
 
 -- --------------------------------------------------------
 
@@ -930,6 +1034,12 @@ CREATE TABLE `wishlists` (
 -- Indexes for table `admins`
 --
 ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `banners`
+--
+ALTER TABLE `banners`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -967,6 +1077,12 @@ ALTER TABLE `facilities`
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `follows`
+--
+ALTER TABLE `follows`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1043,6 +1159,12 @@ ALTER TABLE `admins`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `banners`
+--
+ALTER TABLE `banners`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -1052,7 +1174,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -1064,7 +1186,7 @@ ALTER TABLE `districts`
 -- AUTO_INCREMENT for table `divisions`
 --
 ALTER TABLE `divisions`
-  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `facilities`
@@ -1079,40 +1201,46 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `follows`
+--
+ALTER TABLE `follows`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `shops`
 --
 ALTER TABLE `shops`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `shop_facilities`
 --
 ALTER TABLE `shop_facilities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `shop_images`
 --
 ALTER TABLE `shop_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `upazilas`

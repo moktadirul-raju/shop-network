@@ -8,7 +8,7 @@
 			<h5 style="float: left;">Details</h5>
 			<a style="float: right;" href="{{ route('admin.approve-reject',['shop'=>$shop->id,'status'=>1]) }}" class="btn btn-success">
 			<i class="fa fa-check"></i>Approve</a>
-			<a style="float: right;" href="{{ route('admin.approve-reject',['shop'=>$shop->id,'status'=>0]) }}" class="btn btn-danger">
+			<a style="float: right;" href="{{ route('admin.approve-reject',['shop'=>$shop->id,'status'=>2]) }}" class="btn btn-danger">
 				<i class="fa fa-close"></i>
 			Reject</a>&npsp;
 		</div>

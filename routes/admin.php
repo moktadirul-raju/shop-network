@@ -22,11 +22,18 @@ Route::post('admin-login',function(Request $request){
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('profile', 'DashboardController@profile')->name('profile');
+    Route::put('profile', 'DashboardController@profileUpdate')
+        ->name('profile');
     Route::get('user', 'DashboardController@allUser')->name('user');
     Route::post('search-user', 'DashboardController@searchUser')
         ->name('search-user');
     Route::get('sohp/pending','DashboardController@pendingShop')    
         ->name('pending-shop');
+    Route::get('sohp/approved','DashboardController@approvedShop')    
+        ->name('approved-shop'); 
+    Route::get('sohp/rejected','DashboardController@rejectedShop')    
+        ->name('rejected-shop');       
     Route::get('sohp/details/{id}','DashboardController@shopDetails')    
         ->name('details'); 
     Route::get('approve-reject','DashboardController@approveReject')
@@ -37,6 +44,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('district', 'DistrictController');
     Route::resource('upazila', 'UpazilaController');
     Route::resource('notification', 'NotificationController');
+    Route::resource('banner', 'BannerController');
 });
 
 

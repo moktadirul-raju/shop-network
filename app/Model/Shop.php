@@ -12,6 +12,22 @@ class Shop extends Model
     		->withTimestamps();
     }
 
+   public function images(){
+        return $this->hasMany(ShopImage::class,'shop_id','id');
+    }
+
+    public function followers(){
+        return $this->hasMany(Follow::class,'shop_id','id');
+    }
+
+    public function reviews(){
+        return $this->hasMany(Review::class,'shop_id','id');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class,'shop_id','id');
+    }
+
     public function user(){
     	return $this->belongsTo(User::class);
     }

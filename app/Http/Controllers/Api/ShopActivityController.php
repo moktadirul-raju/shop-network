@@ -10,11 +10,46 @@ use Intervention\Image\Facades\Image;
 use App\Model\Shop;
 use App\Model\Wishlist;
 use App\Model\ShopImage;
+use App\Model\Follow;
+use App\Model\Review;
+use App\Model\Comment;
 
 class ShopActivityController extends Controller
 {
 	public function allShop(){
-		$shops = Shop::all();
+		$data = Shop::query();
+        $data->with([
+            'category'=>function($query){
+                $query->select('category');
+            },
+            'facilities' => function($query){
+                $query->select('facility_name');
+            },
+            'images' => function($query){
+                $query->select('shop_id','image');
+            },
+
+            'followers' => function($query){
+                $query->count();
+            },
+            'reviews' => function($query){
+                $query->with([
+                    'user' =>function($query){
+                        $query->select('id','name');
+                    }
+                ]);
+                $query->select('id','shop_id','user_id','rating','review');
+            },
+            'comments' => function($query){
+                $query->with([
+                    'user' =>function($query){
+                        $query->select('id','name');
+                    }
+                ]);
+                $query->select('id','shop_id','user_id','comment');
+            }
+        ]);
+        $shops = $data->get();
 		if(sizeof($shops) > 0){
 			$message = 'Data Found';
 		} else{
@@ -23,6 +58,12 @@ class ShopActivityController extends Controller
 
 		return response()->json(['message'=>$message,'data'=>$shops]);
 	}
+
+    public function userShop(){
+        $shop = Shop::with('category','facilities','images','followers')
+            ->where('user_id',Auth::id())->first();
+        return $shop;
+    }
 
 	public function addToWishlist($shop_id){
 		$wishlist = new Wishlist();
@@ -78,6 +119,78 @@ class ShopActivityController extends Controller
         return response()->json(['message','Successfully Added']);
     }
 
+    public function searchShop(Request $request){
+        $query = Shop::query();
+        $query->where('division_id',$request->division_id)
+                ->orWhere('district_id',$request->district_id)
+                ->orWhere('upazila_id',$request->upazila_id);
+        $query->with([
+            'category'=>function($query){
+                $query->select('category');
+            },
+            'facilities' => function($query){
+                $query->select('facility_name');
+            },
+            'images' => function($query){
+                $query->select('shop_id','image');
+            },
+
+            'followers' => function($query){
+                $query->count();
+            },
+            'reviews' => function($query){
+                $query->with([
+                    'user' =>function($query){
+                        $query->select('id','name');
+                    }
+                ]);
+                $query->select('id','shop_id','user_id','rating','review');
+            },
+            'comments' => function($query){
+                $query->with([
+                    'user' =>function($query){
+                        $query->select('id','name');
+                    }
+                ]);
+                $query->select('id','shop_id','user_id','comment');
+            }
+        ]);
+        $shops = $query->get();
+        if(sizeof($shops) > 0){
+            $message = 'Data Found';
+        } else{
+            $message = 'No Data Found';
+        }
+
+        return response()->json(['message'=>$message,'data'=>$shops]);
+
+    }
+
+    public function submitReview(Request $request){
+        $this->validate($request,[
+            'shop_id'=>'required',
+            'rating'=>'required'
+        ]);
+
+        $review = new Review();
+        $review->user_id = Auth::id();
+        $review->shop_id = $request->shop_id;
+        $review->rating = $request->rating;
+        $review->review = $request->review;
+        $review->save();
+        return response()->json(['message'=>'Thanks For Your Review']);
+    }
+
+     public function submitComment(Request $request){
+        $this->validate($request,['comment'=>'required']);
+        $comment = new Comment();
+        $comment->user_id = Auth::id();
+        $comment->shop_id = $request->shop_id;
+        $comment->comment = $request->comment;
+        $comment->save();
+        return response()->json(['message'=>'Thanks For Your Comment']);
+    }
+
     public function shopImageRemove($id){
         $image = HotelImage::findOrFail($id);
         $hotel_id = $image->hotel_id;
@@ -110,5 +223,24 @@ class ShopActivityController extends Controller
     	if(file_exists($facility->icon) AND !empty($facility->icon)){
         unlink($facility->icon);
         }
+    }
+
+    public function followShop($shop_id){
+        if(Follow::where('user_id',Auth::id())->where('shop_id',$shop_id)->exists()){
+            return response()->json(['message'=>'Already Added Follow List']);
+        }else{
+            $follow = new Follow();
+            $follow->user_id = Auth::id();
+            $follow->shop_id = $shop_id;
+            $follow->save();
+            return response()->json(['message'=>'Added To Following']);
+        }
+
+    }
+
+    public function unFollowShop($shop_id){
+        Follow::where('user_id',Auth::id())
+            ->where('shop_id',$shop_id)->delete();
+        return response()->json(['message'=>'Delete From Following']);    
     }
 }
