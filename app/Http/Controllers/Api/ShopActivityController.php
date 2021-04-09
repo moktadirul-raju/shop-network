@@ -13,6 +13,8 @@ use App\Model\ShopImage;
 use App\Model\Follow;
 use App\Model\Review;
 use App\Model\Comment;
+use App\Model\Category;
+use App\Model\Facility;
 
 class ShopActivityController extends Controller
 {
@@ -114,6 +116,30 @@ class ShopActivityController extends Controller
 		$wishlist->shop_id = $shop_id;
 		return response()->json(['message'=>'Added To wishlist']);
 	}
+
+    public function allCategory(){
+        $data = Category::query();
+        $categories = $data->get();
+        if(sizeof($categories) > 0){
+            $message = 'Data Found';
+        } else{
+            $message = 'No Data Found';
+        }
+
+        return response()->json(['message'=>$message,'data'=>$categories]);
+    }
+
+    public function allFacility(){
+        $data = Facility::query();
+        $facilities = $data->get();
+        if(sizeof($facilities) > 0){
+            $message = 'Data Found';
+        } else{
+            $message = 'No Data Found';
+        }
+
+        return response()->json(['message'=>$message,'data'=>$facilities]);
+    }
 
     public function addShop(Request $request){
         if(Shop::where('user_id',Auth::id())->exists()){

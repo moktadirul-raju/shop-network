@@ -9,6 +9,8 @@ Route::group(['middleware'=>'auth:api'],function () {
    	->name('user-profile');
    Route::put('update-profile','UserController@updateProfile')	
    	->name('update-profile');
+   Route::get('all-category','ShopActivityController@allCategory'); 
+   Route::get('all-facility','ShopActivityController@allFacility'); 
    Route::post('add-shop','ShopActivityController@addShop');  
    Route::get('user-shop','ShopActivityController@userShop'); 
    Route::post('search-shop','ShopActivityController@searchShop');  
