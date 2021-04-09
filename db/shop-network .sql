@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 08, 2021 at 04:12 PM
+-- Generation Time: Apr 09, 2021 at 02:58 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -107,7 +107,9 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `user_id`, `shop_id`, `comment`, `created_at`, `updated_at`) VALUES
-(1, 2, 7, 'Nice activity', '2021-04-08 10:10:35', '2021-04-08 10:10:35');
+(4, 2, 7, 'Nice activity', '2021-04-09 04:37:50', '2021-04-09 04:37:50'),
+(5, 2, 7, 'Nice activity', '2021-04-09 04:38:15', '2021-04-09 04:38:15'),
+(6, 2, 7, 'Nice activity', '2021-04-09 04:38:16', '2021-04-09 04:38:16');
 
 -- --------------------------------------------------------
 
@@ -313,7 +315,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2021_04_06_065621_create_shop_images_table', 3),
 (18, '2021_04_06_065702_create_shop_facilities_table', 3),
 (19, '2021_04_08_052324_create_banners_table', 4),
-(20, '2021_04_08_125532_create_follows_table', 5);
+(20, '2021_04_08_125532_create_follows_table', 5),
+(21, '2021_04_09_141014_create_paypal_infos_table', 6);
 
 -- --------------------------------------------------------
 
@@ -353,6 +356,30 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `paypal_infos`
+--
+
+CREATE TABLE `paypal_infos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `environment` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `public_key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `merchant_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `private_key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `paypal_enabled` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'no',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `paypal_infos`
+--
+
+INSERT INTO `paypal_infos` (`id`, `environment`, `public_key`, `merchant_id`, `private_key`, `paypal_enabled`, `created_at`, `updated_at`) VALUES
+(1, 'sandbox', '256y6grqr936tpjf', 'h6ggypvjgt4tzz2k', '0d6aadf4b586a84844ceadc834dc851f', 'yes', NULL, '2021-04-09 08:38:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reviews`
 --
 
@@ -372,7 +399,7 @@ CREATE TABLE `reviews` (
 
 INSERT INTO `reviews` (`id`, `user_id`, `shop_id`, `rating`, `review`, `created_at`, `updated_at`) VALUES
 (1, 2, 7, '5', 'Nice activity', '2021-04-08 09:55:39', '2021-04-08 09:55:39'),
-(2, 2, 7, '5', 'Nice activity', '2021-04-08 09:55:49', '2021-04-08 09:55:49');
+(2, 2, 7, '3', 'Nice activity', '2021-04-08 09:55:49', '2021-04-08 09:55:49');
 
 -- --------------------------------------------------------
 
@@ -1104,6 +1131,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `paypal_infos`
+--
+ALTER TABLE `paypal_infos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
@@ -1174,7 +1207,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -1204,19 +1237,25 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `follows`
 --
 ALTER TABLE `follows`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `paypal_infos`
+--
+ALTER TABLE `paypal_infos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `reviews`

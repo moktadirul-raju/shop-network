@@ -59,6 +59,49 @@ class ShopActivityController extends Controller
 		return response()->json(['message'=>$message,'data'=>$shops]);
 	}
 
+    public function shopDetails($id){
+        $data = Shop::where('id',$id);
+        $data->with([
+            'category'=>function($query){
+                $query->select('category');
+            },
+            'facilities' => function($query){
+                $query->select('facility_name');
+            },
+            'images' => function($query){
+                $query->select('shop_id','image');
+            },
+
+            'followers' => function($query){
+                $query->count();
+            },
+            'reviews' => function($query){
+                $query->with([
+                    'user' =>function($query){
+                        $query->select('id','name');
+                    }
+                ]);
+                $query->select('id','shop_id','user_id','rating','review');
+            },
+            'comments' => function($query){
+                $query->with([
+                    'user' =>function($query){
+                        $query->select('id','name');
+                    }
+                ]);
+                $query->select('id','shop_id','user_id','comment');
+            }
+        ]);
+        $shop = $data->first();
+        if(isset($shop)){
+            $message = 'Data Found';
+        } else{
+            $message = 'No Data Found';
+        }
+
+        return response()->json(['message'=>$message,'data'=>$shop]);
+    }
+
     public function userShop(){
         $shop = Shop::with('category','facilities','images','followers')
             ->where('user_id',Auth::id())->first();

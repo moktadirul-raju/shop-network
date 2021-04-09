@@ -15,6 +15,7 @@ Route::group(['middleware'=>'auth:api'],function () {
    Route::post('submit-review','ShopActivityController@submitReview');  
    Route::post('submit-comment','ShopActivityController@submitComment');	
    Route::get('all-shop','ShopActivityController@allShop');
+   Route::get('shop-details/{id}','ShopActivityController@shopDetails');
    Route::get('add-to-wishlist/{shop_id}','ShopActivityController@addToWishlist');
    Route::get('follow-shop/{shop_id}','ShopActivityController@followShop');
    Route::get('unfollow-shop/{shop_id}','ShopActivityController@unFollowShop');

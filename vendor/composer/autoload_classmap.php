@@ -47,6 +47,7 @@ return array(
     'App\\Model\\Facility' => $baseDir . '/app/Model/Facility.php',
     'App\\Model\\Follow' => $baseDir . '/app/Model/Follow.php',
     'App\\Model\\Notification' => $baseDir . '/app/Model/Notification.php',
+    'App\\Model\\PaypalInfo' => $baseDir . '/app/Model/PaypalInfo.php',
     'App\\Model\\Review' => $baseDir . '/app/Model/Review.php',
     'App\\Model\\Shop' => $baseDir . '/app/Model/Shop.php',
     'App\\Model\\ShopFacility' => $baseDir . '/app/Model/ShopFacility.php',

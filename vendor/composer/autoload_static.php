@@ -574,6 +574,7 @@ class ComposerStaticInit861675f6d4a0fdb67d2afd8bc58ef980
         'App\\Model\\Facility' => __DIR__ . '/../..' . '/app/Model/Facility.php',
         'App\\Model\\Follow' => __DIR__ . '/../..' . '/app/Model/Follow.php',
         'App\\Model\\Notification' => __DIR__ . '/../..' . '/app/Model/Notification.php',
+        'App\\Model\\PaypalInfo' => __DIR__ . '/../..' . '/app/Model/PaypalInfo.php',
         'App\\Model\\Review' => __DIR__ . '/../..' . '/app/Model/Review.php',
         'App\\Model\\Shop' => __DIR__ . '/../..' . '/app/Model/Shop.php',
         'App\\Model\\ShopFacility' => __DIR__ . '/../..' . '/app/Model/ShopFacility.php',

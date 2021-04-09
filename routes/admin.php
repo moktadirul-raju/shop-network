@@ -36,8 +36,16 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('rejected-shop');       
     Route::get('sohp/details/{id}','DashboardController@shopDetails')    
         ->name('details'); 
+    Route::get('sohp/comments/{id}','DashboardController@shopComments')    
+        ->name('comments');
+    Route::get('sohp/review/{id}','DashboardController@shopReviews')    
+        ->name('review');        
     Route::get('approve-reject','DashboardController@approveReject')
         ->name('approve-reject');
+    Route::get('paypal-info','DashboardController@paypalInfo')    
+        ->name('paypal-info');
+    Route::put('paypal-info-update','DashboardController@paypalInfoUpdate')
+        ->name('paypal-info-update');    
     Route::resource('facility', 'FacilityController');
     Route::resource('category', 'CategoryController');
     Route::resource('division', 'DivisionController');

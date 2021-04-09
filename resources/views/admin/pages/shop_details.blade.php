@@ -6,11 +6,11 @@
 	<div class="tile">
 		<div class="tile-header">
 			<h5 style="float: left;">Details</h5>
-			<a style="float: right;" href="{{ route('admin.approve-reject',['shop'=>$shop->id,'status'=>1]) }}" class="btn btn-success">
+			<a style="float: right;" href="{{ route('admin.approve-reject',['shop'=>$shop->id,'status'=>1]) }}" class="btn btn-success btn-sm">
 			<i class="fa fa-check"></i>Approve</a>
-			<a style="float: right;" href="{{ route('admin.approve-reject',['shop'=>$shop->id,'status'=>2]) }}" class="btn btn-danger">
+			<a style="float: right;" href="{{ route('admin.approve-reject',['shop'=>$shop->id,'status'=>2]) }}" class="btn btn-danger btn-sm">
 				<i class="fa fa-close"></i>
-			Reject</a>&npsp;
+			Reject</a>
 		</div>
 		<div class="tile-body">
 			<table class="table table-bordered table-striped  text-nowrap">
@@ -19,12 +19,17 @@
 						<th>Current Status</th>
 						<th>
 							@if($shop->approve_status == 1)
-								<button class="btn btn-success">Approved</button>
+								<button class="btn btn-success btn-sm">Approved</button>
 							@elseif($shop->approve_status == 0)	
-							<button class="btn btn-warning">Pending</button>
+							<button class="btn btn-warning btn-sm">Pending</button>
 							@endif
 						</th>
 					</tr>
+					<th>Review/Comments</th>
+					<th>
+						<a href="{{ route('admin.review',$shop->id) }}" class="btn btn-info btn-sm">Reviews</a>
+						<a href="{{ route('admin.comments',$shop->id) }}" class="btn btn-primary btn-sm">Comments</a>
+					</th>
 					<tr>
 						<th>User</th>
 						<th>{{ $shop->user->name }}</th>

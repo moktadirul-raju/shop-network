@@ -9,7 +9,7 @@
   <ul class="app-menu">
     <li><a class="app-menu__item {{ Request::is('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
 
-     <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Network Request</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+     <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Shop Management</span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
         <li><a class="treeview-item {{ Request::is('admin/shop/pending') ? 'active' : '' }}" href="{{ route('admin.pending-shop') }}"><i class="icon fa fa-circle-o"></i>
           Pending Request({{ DB::table('shops')->where('approve_status',0)->count() }})
@@ -36,5 +36,6 @@
     </li>
     <li><a class="app-menu__item {{ Request::is('admin/division') ? 'active' : '' }}" href="{{ route('admin.division.index') }}"><i class="app-menu__icon fa fa-address-book"></i><span class="app-menu__label">Address</span></a></li>
     <li><a class="app-menu__item {{ Request::is('admin/notification') ? 'active' : '' }}" href="{{ route('admin.notification.index') }}"><i class="app-menu__icon fa fa-bell"></i><span class="app-menu__label">Push Notification</span></a></li>
+    <li><a class="app-menu__item {{ Request::is('admin/paypal-info') ? 'active' : '' }}" href="{{ route('admin.paypal-info') }}"><i class="app-menu__icon fa fa-money"></i><span class="app-menu__label">Paypal Info</span></a></li>
 
   </ul>

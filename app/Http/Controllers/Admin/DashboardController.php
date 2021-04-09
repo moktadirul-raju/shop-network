@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Model\User;
 use App\Model\Shop;
+use App\Model\Comment;
+use App\Model\Review;
+use App\Model\PaypalInfo;
 
 class DashboardController extends Controller
 {
@@ -78,11 +81,6 @@ class DashboardController extends Controller
         return view('admin.pages.shops',compact('shops','title'));
     }
 
-    public function shopDetails($id){
-        $shop = Shop::findOrFail($id);
-        return view('admin.pages.shop_details',compact('shop'));
-    }
-
     public function approveReject(){
         $status = request()->get('status');
         Shop::find(request()->get('shop'))->update(['approve_status'=> $status]);
@@ -91,6 +89,42 @@ class DashboardController extends Controller
         }elseif(request()->get('status') == 2){
             Toastr::error('Application Reject');
         }
+        return redirect()->back();
+    }
+
+    public function shopDetails($id){
+        $shop = Shop::findOrFail($id);
+        return view('admin.pages.shop_details',compact('shop'));
+    }
+
+    public function shopReviews($id){
+        $shop = Shop::with('reviews')
+            ->select('id','title')->where('id',$id)
+            ->first();
+        return view('admin.pages.shop_review',compact('shop'));
+    }
+
+    public function shopComments($id){
+        $shop = Shop::with('comments')
+            ->select('id','title')
+            ->where('id',$id)->first();
+        return view('admin.pages.shop_comments',compact('shop'));
+    }
+
+    public function paypalInfo(){
+        $paypalInfo = PaypalInfo::first();
+        return view('admin.pages.paypal_info',compact('paypalInfo'));
+    }
+
+    public function paypalInfoUpdate(Request $request){
+        $paypalInfo = PaypalInfo::first();
+        $paypalInfo->environment = $request->environment;
+        $paypalInfo->public_key = $request->public_key;
+        $paypalInfo->merchant_id = $request->merchant_id;
+        $paypalInfo->private_key = $request->private_key;
+        $paypalInfo->paypal_enabled = $request->paypal_enabled;
+        Toastr::info('Paypal Info Update Successfully');
+        $paypalInfo->save();
         return redirect()->back();
     }
 }
