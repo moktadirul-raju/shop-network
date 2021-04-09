@@ -22,6 +22,8 @@
 								<button class="btn btn-success btn-sm">Approved</button>
 							@elseif($shop->approve_status == 0)	
 							<button class="btn btn-warning btn-sm">Pending</button>
+							@elseif($shop->approve_status == 2)	
+							<button class="btn btn-danger btn-sm">Rejected</button>
 							@endif
 						</th>
 					</tr>
