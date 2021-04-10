@@ -11,7 +11,7 @@
   <form action="{{ route('admin.search-user') }}" method="POST" class="form-inline text-right">
         @csrf
         <div class="form-group mb-2">
-            <input type="test" name="query" class="form-control" placeholder="Name/Email/Mobile">
+            <input type="test" name="data" class="form-control" placeholder="Name/Email/Mobile">
         </div>
         &nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i>&nbsp;Search</button>
     </form>

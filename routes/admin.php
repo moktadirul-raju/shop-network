@@ -33,7 +33,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('sohp/approved','DashboardController@approvedShop')    
         ->name('approved-shop'); 
     Route::get('sohp/rejected','DashboardController@rejectedShop')    
-        ->name('rejected-shop');       
+        ->name('rejected-shop'); 
+    Route::post('search-shop','DashboardController@searchShop')
+        ->name('search-shop');
     Route::get('sohp/details/{id}','DashboardController@shopDetails')    
         ->name('details'); 
     Route::get('sohp/comments/{id}','DashboardController@shopComments')    
@@ -47,6 +49,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::put('paypal-info-update','DashboardController@paypalInfoUpdate')
         ->name('paypal-info-update');    
     Route::resource('facility', 'FacilityController');
+    Route::resource('shop', 'ShopController');
     Route::resource('category', 'CategoryController');
     Route::resource('division', 'DivisionController');
     Route::resource('district', 'DistrictController');

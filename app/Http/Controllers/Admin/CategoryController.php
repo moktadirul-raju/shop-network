@@ -22,9 +22,10 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request,['category_name'=>'required']);
+        $this->validate($request,[
+            'category'=>'required|unique:categories']);
         $category = new Category();
-        $category->category = $request->category_name;
+        $category->category = $request->category;
         $category->save();
         Toastr::success('New Category Added Successfully');
         return redirect()->route('admin.category.index');
@@ -42,9 +43,9 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request,['category_name'=>'required']);
+        $this->validate($request,['category'=>'required']);
         $category = Category::findOrFail($id);
-        $category->category = $request->category_name;
+        $category->category = $request->category;
         $category->save();
         Toastr::info('Category Update Successfully');
         return redirect()->route('admin.category.index');

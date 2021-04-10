@@ -150,9 +150,15 @@ class ShopActivityController extends Controller
         $shop->category_id = $request->category_id;
         $shop->title = $request->title;
         $shop->established_date = $request->established_date;
-        $shop->division_id = $request->division_id;
-        $shop->upazila_id = $request->upazila_id;
-        $shop->address = $request->address;
+        $shop->country = $request->country;
+        $shop->city = $request->city;
+        $shop->street_address = $request->street_address;
+        $shop->additional_address = $request->additional_address;
+        $shop->zip_code = $request->zip_code;
+        $shop->facebook_link = $request->facebook_link;
+        $shop->twitter_link = $request->twitter_link;
+        $shop->instagram_link = $request->instagram_link;
+        $shop->linkedin_link = $request->linkedin_link;
         $shop->phone = $request->phone;
         $shop->fax = $request->fax;
         $shop->email = $request->email;
@@ -162,10 +168,12 @@ class ShopActivityController extends Controller
         $shop->max_price = $request->max_price;
         if($request->discount){
             $shop->discount = $request->discount;
-            $url =  file_get_contents('https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl='.urlencode($request->discount));
+            $qrcode_url = 'http://koiva.mkraju.com/'.Auth::id().'/'.$request->discount;
+            $url =  file_get_contents('https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl='.urlencode($qrcode_url));
             $qrCode = 'images/qrcode/'.auth()->user()->mobile.'.jpg';
             file_put_contents($qrCode,$url);
-            $shop->discount_qrcode = $qrCode;
+            $shop->discount_qrcode_link = $qrcode_url;
+            $shop->discount_qrcode_image = $qrCode;
         }
         $shop->lat = $request->lat;
         $shop->lan = $request->lan;

@@ -8,14 +8,15 @@
             <h2>Paypal Information</h2>
 		</div>
 		<div class="tile-body">
-			<form action="{{ route('admin.paypal-info-update') }}" method="POST">
+			@if(isset($paypalInfo))
+				<form action="{{ route('admin.paypal-info-update') }}" method="POST">
 				@csrf
 				@method('PUT')
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
 					      <label for="">Paypal Environment</label>
-					      <input type="text" name="environment" value="{{ $paypalInfo->environment }}" class="form-control">
+					      <input type="text" name="environment" value="{{ $paypalInfo->environment  }}" class="form-control">
 				        </div>
 					</div>
 					<div class="col-md-6">
@@ -67,6 +68,8 @@
 				</div>
 
 			</form>
+			@else
+			@endif
 		</div>
 	</div>
 </div>

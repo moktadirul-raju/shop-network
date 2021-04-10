@@ -28,7 +28,7 @@
 							<div class="modal-body">
 								<div class="form-group">
 									<label for="">Category Name</label>
-									<input type="text" name="category_name" class="form-control" placeholder="Category Name">
+									<input type="text" name="category" class="form-control" placeholder="Category Name">
 								</div>
 							</div>
 							<div class="modal-footer">
@@ -73,7 +73,7 @@
 									<div class="modal-body text-left">
 										<div class="form-group">
 											<label for="">Category Name</label>
-											<input type="text" name="category_name" class="form-control" value="{{ $category->category }}">
+											<input type="text" name="category" class="form-control" value="{{ $category->category }}">
 										</div>
 									</div>
 									<div class="modal-footer">

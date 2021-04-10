@@ -10,10 +10,10 @@
 	<div class="tile">
 		<div class="tile-header">
 			<h5 style="float: left;">{{ $title }}</h5>
-			<form action="" method="POST" class="form-inline" style="float: right;">
+			<form action="{{ route('admin.search-shop') }}" method="POST" class="form-inline" style="float: right;">
 	         	@csrf
 	        	<div class="form-group mb-2">
-	            	<input type="text" name="mobile" class="form-control" placeholder="Mobile Number">
+	            	<input type="text" name="mobile" class="form-control" placeholder="Mobile/Email">
 	        	</div>
 	        	&nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-edit"></i>Search</button>
     		</form>

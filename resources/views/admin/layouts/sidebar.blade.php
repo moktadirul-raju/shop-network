@@ -18,23 +18,20 @@
         Approved Request({{ DB::table('shops')->where('approve_status',1)->count() }})</a></li>
         <li><a class="treeview-item {{ Request::is('admin/shop/rejected') ? 'active' : '' }}" href="{{ route('admin.rejected-shop') }}"><i class="icon fa fa-circle-o"></i>
         Rejected Request({{ DB::table('shops')->where('approve_status',2)->count() }})</a></li>
-         
-        
       </ul>
     </li>
-    <li><a class="app-menu__item {{ Request::is('admin/user') ? 'active' : '' }}" href="{{ route('admin.user') }}"><i class="app-menu__icon fa fa-user"></i><span class="app-menu__label">Users</span></a></li>
+    <li><a class="app-menu__item {{ Request::is('admin/shop') ? 'active' : '' }}" href="{{ route('admin.shop.index') }}"><i class="app-menu__icon fa fa-plus"></i><span class="app-menu__label">Add Shop</span></a></li>
+    <li><a class="app-menu__item {{ Request::is('admin/user') ? 'active' : '' }}" href="{{ route('admin.user') }}"><i class="app-menu__icon fa fa-user"></i><span class="app-menu__label">ALL Users</span></a></li>
 
     <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Basic Elements</span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
         <li><a class="treeview-item {{ Request::is('admin/category') ? 'active' : '' }}" href="{{ route('admin.category.index') }}"><i class="icon fa fa-circle-o"></i>Add Category</a></li>
         <li><a class="treeview-item {{ Request::is('admin/facility') ? 'active' : '' }}" href="{{ route('admin.facility.index') }}"><i class="icon fa fa-circle-o"></i>
         Facilites</a></li>
-         <li><a class="treeview-item {{ Request::is('admin/banner') ? 'active' : '' }}" href="{{ route('admin.banner.index') }}"><i class="icon fa fa-circle-o"></i>
-        Banner</a></li>
         
       </ul>
     </li>
-    <li><a class="app-menu__item {{ Request::is('admin/division') ? 'active' : '' }}" href="{{ route('admin.division.index') }}"><i class="app-menu__icon fa fa-address-book"></i><span class="app-menu__label">Address</span></a></li>
+    <li><a class="app-menu__item {{ Request::is('admin/banner') ? 'active' : '' }}" href="{{ route('admin.banner.index') }}"><i class="app-menu__icon fa fa-address-book"></i><span class="app-menu__label">Add Banner</span></a></li>
     <li><a class="app-menu__item {{ Request::is('admin/notification') ? 'active' : '' }}" href="{{ route('admin.notification.index') }}"><i class="app-menu__icon fa fa-bell"></i><span class="app-menu__label">Push Notification</span></a></li>
     <li><a class="app-menu__item {{ Request::is('admin/paypal-info') ? 'active' : '' }}" href="{{ route('admin.paypal-info') }}"><i class="app-menu__icon fa fa-money"></i><span class="app-menu__label">Paypal Info</span></a></li>
 

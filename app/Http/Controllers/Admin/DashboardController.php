@@ -42,7 +42,12 @@ class DashboardController extends Controller
     }
 
     public function searchUser(Request $request){
-        return $request;          
+        $query = $request->data;
+        $users = User::where('name','LIKE',"%$query%")
+                ->orWhere('email','LIKE',"%$query%")
+                ->orWhere('mobile','LIKE',"%$query%")
+                ->get();
+        return view('admin.all_user',compact('users'));        
     }
 
     public function pendingShop(){
@@ -79,6 +84,14 @@ class DashboardController extends Controller
         $shops = $data->oldest()->get();
         $title = 'Rejected Request';
         return view('admin.pages.shops',compact('shops','title'));
+    }
+
+    public function searchShop(Request $request){
+        $query = $request->mobile;
+        $shop = Shop::where('phone','LIKE',"%$query%")
+            ->orWhere('email','LIKE',"%$query%")
+            ->first();
+        return view('admin.pages.shop_details',compact('shop'));
     }
 
     public function approveReject(){
