@@ -4,12 +4,90 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+use Brian2694\Toastr\Facades\Toastr;
 use App\Model\Shop;
+use App\Model\ShopImage;
+use App\Model\Facility;
+use App\Model\Category;
+use App\Model\User;
 
 class ShopController extends Controller
 {
     public function index(){
-    	return $shops = Shop::latest()->get();
+    	$shops = Shop::where('added_by','admin')->latest()->get();
+    	return view('admin.pages.added_shop',compact('shops'));
 
+    }
+
+    public function create(){
+    	$facilites = Facility::all();
+    	$categories = Category::all();
+    	return view('admin.pages.add_shop',compact('facilites','categories'));
+    }
+
+    public function store(Request $request){
+    	$user = User::where('mobile',$request->mobile)->first();
+    	if(isset($user)){
+    		if(Shop::where('user_id',$user->id)->exists()){
+            Toastr::error('Shop Exists For This User');
+            return redirect()->back();
+        }
+    	$shop = new Shop();
+        $shop->added_by = 'admin';
+        $shop->user_id = $user->id;
+        $shop->category_id = $request->category_id;
+        $shop->title = $request->title;
+        $shop->established_date = $request->established_date;
+        $shop->country = $request->country;
+        $shop->city = $request->city;
+        $shop->street_address = $request->street_address;
+        $shop->additional_address = $request->additional_address;
+        $shop->zip_code = $request->zip_code;
+        $shop->facebook_link = $request->facebook_link;
+        $shop->twitter_link = $request->twitter_link;
+        $shop->instagram_link = $request->instagram_link;
+        $shop->linkedin_link = $request->linkedin_link;
+        $shop->phone = $request->phone;
+        $shop->fax = $request->fax;
+        $shop->email = $request->email;
+        $shop->website = $request->website;
+        $shop->description = $request->description;
+        $shop->min_price = $request->min_price;
+        $shop->max_price = $request->max_price;
+        if($request->discount){
+            $shop->discount = $request->discount;
+            $qrcode_url = 'http://koiva.mkraju.com/'.$user->id.'/'.$request->discount;
+            $url =  file_get_contents('https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl='.urlencode($qrcode_url));
+            $qrCode = 'images/qrcode/'.auth()->user()->mobile.'.jpg';
+            file_put_contents($qrCode,$url);
+            $shop->discount_qrcode_link = $qrcode_url;
+            $shop->discount_qrcode_image = $qrCode;
+        }
+        $shop->lat = $request->lat;
+        $shop->lan = $request->lan;
+        $shop->save();
+        $shop->facilities()->sync($request->facilities);
+        if($request->hasFile('images')) {
+            foreach($request->file('images') as $image){
+                $imageName = time().$image->getClientOriginalName();
+                $image_resize = Image::make($image->getRealPath());
+                $image_resize->resize(480, 360);
+                $image_resize->save('images/shop/'.$imageName);
+                $data[] = $imageName;
+                $images = new ShopImage();
+                $images->shop_id = $shop->id;
+                $images->image = 'images/shop/'.$imageName;
+                //return 253;
+                $images->save();
+           }
+        }
+        
+    Toastr::success('Shop Added Successfully');
+    return redirect()->route('admin.shop.index'); 
+    	} else{
+    		Toastr::warning('User Not Found By This Mobile');
+    		return redirect()->back();
+    	}
     }
 }
