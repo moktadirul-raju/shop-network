@@ -18,6 +18,7 @@ use App\Model\Follow;
 use App\Model\Wishlist;
 use App\Model\PaypalInfo;
 use App\Model\Policy;
+use Response;
 
 class DashboardController extends Controller
 {
@@ -134,26 +135,72 @@ class DashboardController extends Controller
         return view('admin.all_user',compact('users'));        
     }
 
-    public function export()
-    {
+    public function exportUser(){
         $headers = array(
             "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=file.csv",
+            "Content-Disposition" => "attachment; filename=users.csv",
             "Pragma" => "no-cache",
             "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
             "Expires" => "0"
         );
 
-        $reviews = Reviews::getReviewExport($this->hw->healthwatchID)->get();
-        $columns = array('ReviewID', 'Provider', 'Title', 'Review', 'Location', 'Created', 'Anonymous', 'Escalate', 'Rating', 'Name');
+        $users = User::all();
+        $columns = array('Name', 'Nickname', 'Mobile', 'Email');
 
-        $callback = function() use ($reviews, $columns)
+        $callback = function() use ($users, $columns)
         {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
 
-            foreach($reviews as $review) {
-                fputcsv($file, array($review->reviewID, $review->provider, $review->title, $review->review, $review->location, $review->review_created, $review->anon, $review->escalate, $review->rating, $review->name));
+            foreach($users as $user) {
+                fputcsv($file, array($user->name, $user->nickname, $user->mobile, $user->email));
+            }
+            fclose($file);
+        };
+        return Response::stream($callback, 200, $headers);
+    }
+
+    public function exportShop(){
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=shops.csv",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+        $shops = Shop::all();
+        $columns = array('User', 'Category', 'Title', 'Established Date','Country','City','Street Address','Additional Address','Zip','Phone','Fax','Email','Website','Facebook Link','Twitter Link','Instagram Link','Youtube Link','Linkeding Link','Min Price','Max Price','Discount');
+
+        $callback = function() use ($shops, $columns)
+        {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach($shops as $shop) {
+                fputcsv($file, array(
+                    $shop->user->name, 
+                    $shop->category->category, 
+                    $shop->title, 
+                    $shop->established_date,
+                    $shop->country,
+                    $shop->city,
+                    $shop->street_address,
+                    $shop->additional_address,
+                    $shop->zip_code,
+                    $shop->phone,
+                    $shop->fax,
+                    $shop->email,
+                    $shop->website,
+                    $shop->facebook_link,
+                    $shop->twitter_link,
+                    $shop->instagram_link,
+                    $shop->youtube_link,
+                    $shop->linkedin_link,
+                    $shop->min_price,
+                    $shop->max_price,
+                    $shop->discount
+                ));
             }
             fclose($file);
         };

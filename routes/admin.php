@@ -68,6 +68,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('privacy_policy','DashboardController@privacyPolicy')->name('privacy_policy');
     Route::put('policy-update','DashboardController@updatePolicy')->name('policy-update');
     Route::resource('header-image', 'HeaderImageController');
+    Route::get('export-user','DashboardController@exportUser')
+        ->name('export-user');
+    Route::get('export-shop','DashboardController@exportShop')
+        ->name('export-shop');    
 });
 
 

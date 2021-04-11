@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="col-md-12">
+  <a href="{{ route('admin.export-user') }}" class="btn btn-warning" style="float: right;">Export User</a>
   <form action="{{ route('admin.search-user') }}" method="POST" class="form-inline text-right">
         @csrf
         <div class="form-group mb-2">
@@ -15,6 +16,7 @@
         </div>
         &nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i>&nbsp;Search</button>
     </form>
+
   <div class="tile">
     <div class="tile-body">
       <div class="table-responsive">

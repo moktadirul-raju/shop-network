@@ -5,7 +5,9 @@
 
 <div class="col-md-12">
 	<div class="tile">
-		<div class="tile-header"></div>
+		<div class="tile-header">
+			
+		</div>
 		<div class="tile-body">
 			<form action="{{ route('admin.shop.store') }}" method="POST" enctype="multipart/form-data">
 				@csrf

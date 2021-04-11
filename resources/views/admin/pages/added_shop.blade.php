@@ -7,6 +7,7 @@
 
 @section('content')
 <div class="col-md-12">
+  <a href="{{ route('admin.export-shop') }}" class="btn btn-warning" style="float: left;">Export Shop</a>
   <a href="{{ route('admin.shop.create') }}" class="btn btn-success" style="float: right;">
     <i class="fa fa-plus"></i>Add Shop
   </a>
