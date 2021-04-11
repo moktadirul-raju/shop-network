@@ -47,7 +47,7 @@
     </header>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-    <aside class="app-sidebar">
+    <aside class="app-sidebar" style="padding-top: 50px;">
       @include('admin.layouts.sidebar')
     </aside>
 
