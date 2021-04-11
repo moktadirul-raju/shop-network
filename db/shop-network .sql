@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 11, 2021 at 05:27 PM
+-- Generation Time: Apr 11, 2021 at 07:07 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -127,6 +127,31 @@ INSERT INTO `categories` (`id`, `category`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cities`
+--
+
+CREATE TABLE `cities` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `country_id` int(11) NOT NULL,
+  `city_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cities`
+--
+
+INSERT INTO `cities` (`id`, `country_id`, `city_name`, `created_at`, `updated_at`) VALUES
+(1, 2, 'Rangpur', '2021-04-11 12:42:39', '2021-04-11 12:43:28'),
+(3, 2, 'Rajshahi', '2021-04-11 12:43:43', '2021-04-11 12:43:43'),
+(4, 2, 'Dhaka', '2021-04-11 12:43:48', '2021-04-11 12:43:48'),
+(5, 3, 'Siliguri', '2021-04-11 12:44:26', '2021-04-11 12:44:26'),
+(6, 3, 'Jolpaiguri', '2021-04-11 12:44:35', '2021-04-11 12:44:35');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comments`
 --
 
@@ -138,6 +163,47 @@ CREATE TABLE `comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `countries`
+--
+
+CREATE TABLE `countries` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `country` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `countries`
+--
+
+INSERT INTO `countries` (`id`, `country`, `created_at`, `updated_at`) VALUES
+(2, 'Bangladesh', '2021-04-11 12:35:47', '2021-04-11 12:35:47'),
+(3, 'India', '2021-04-11 12:44:10', '2021-04-11 12:44:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `currencies`
+--
+
+CREATE TABLE `currencies` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `currency` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `currencies`
+--
+
+INSERT INTO `currencies` (`id`, `currency`, `created_at`, `updated_at`) VALUES
+(1, 'BDT', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -273,7 +339,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2021_04_11_075415_create_abouts_table', 3),
 (19, '2021_04_11_080103_create_policies_table', 4),
 (20, '2021_04_11_115451_create_header_images_table', 5),
-(21, '2021_04_11_154155_create_in_app_purchases_table', 6);
+(21, '2021_04_11_154155_create_in_app_purchases_table', 6),
+(22, '2021_04_11_181226_create_countries_table', 7),
+(23, '2021_04_11_181239_create_cities_table', 7),
+(24, '2021_04_11_184500_create_currencies_table', 8);
 
 -- --------------------------------------------------------
 
@@ -397,7 +466,7 @@ CREATE TABLE `shops` (
   `category_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `established_date` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `street_address` text COLLATE utf8mb4_unicode_ci,
   `additional_address` text COLLATE utf8mb4_unicode_ci,
@@ -429,9 +498,9 @@ CREATE TABLE `shops` (
 -- Dumping data for table `shops`
 --
 
-INSERT INTO `shops` (`id`, `added_by`, `user_id`, `category_id`, `title`, `established_date`, `country`, `city`, `street_address`, `additional_address`, `zip_code`, `phone`, `fax`, `email`, `website`, `facebook_link`, `twitter_link`, `instagram_link`, `linkedin_link`, `youtube_link`, `description`, `min_price`, `max_price`, `discount`, `discount_qrcode_link`, `discount_qrcode_image`, `lat`, `lan`, `approve_status`, `view_count`, `created_at`, `updated_at`) VALUES
-(5, 'admin', 4, '1', 'Jara fashion', '12-02-18', 'Bangladesh', 'Rangpur', 'jahazcompany mor', 'jahazcompany mor', '5400', '123456987', '32644', 'fashion@shop.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'youtube.com', 'www.fashon.com', 350.00, 3000.00, '10%', 'http://koiva.mkraju.com/4/10%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 1, '0', '2021-04-10 23:58:28', '2021-04-11 11:20:22'),
-(6, NULL, 5, '2', 'Jara fashion', '12-02-18', 'Bangladesh', 'Rangpur', 'jahazcompany mor', 'jahazcompany mor', '5400', '123456987', '32644', 'fashion@shop.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'youtube.com', 'www.fashon.com', 350.00, 3000.00, '10%', 'http://koiva.mkraju.com/5/10%', 'images/qrcode/01889967515.jpg', '26544', '5454', 0, '0', '2021-04-10 23:59:22', '2021-04-10 23:59:22');
+INSERT INTO `shops` (`id`, `added_by`, `user_id`, `category_id`, `title`, `established_date`, `country_id`, `city`, `street_address`, `additional_address`, `zip_code`, `phone`, `fax`, `email`, `website`, `facebook_link`, `twitter_link`, `instagram_link`, `linkedin_link`, `youtube_link`, `description`, `min_price`, `max_price`, `discount`, `discount_qrcode_link`, `discount_qrcode_image`, `lat`, `lan`, `approve_status`, `view_count`, `created_at`, `updated_at`) VALUES
+(5, 'admin', 4, '1', 'Jara fashion', '12-02-18', '3', 'Rangpur', 'jahazcompany mor', 'jahazcompany mor', '5400', '123456987', '32644', 'fashion@shop.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'youtube.com', 'www.fashon.com', 350.00, 3000.00, '10%', 'http://koiva.mkraju.com/4/10%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 1, '0', '2021-04-10 23:58:28', '2021-04-11 13:05:13'),
+(6, NULL, 5, '2', 'Jara fashion', '12-02-18', '3', 'Rangpur', 'jahazcompany mor', 'jahazcompany mor', '5400', '123456987', '32644', 'fashion@shop.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'youtube.com', 'www.fashon.com', 350.00, 3000.00, '10%', 'http://koiva.mkraju.com/5/10%', 'images/qrcode/01889967515.jpg', '26544', '5454', 0, '0', '2021-04-10 23:59:22', '2021-04-10 23:59:22');
 
 -- --------------------------------------------------------
 
@@ -559,9 +628,27 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `cities`
+--
+ALTER TABLE `cities`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `countries`
+--
+ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `currencies`
+--
+ALTER TABLE `currencies`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -697,10 +784,28 @@ ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `cities`
+--
+ALTER TABLE `cities`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `countries`
+--
+ALTER TABLE `countries`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `currencies`
+--
+ALTER TABLE `currencies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `facilities`
@@ -736,7 +841,7 @@ ALTER TABLE `in_app_purchases`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `notifications`
