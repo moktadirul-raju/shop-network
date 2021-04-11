@@ -34,6 +34,7 @@
            <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu">
           <i class="fa fa-user fa-lg"></i>
           @endif
+
         </a>
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
             <li><a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="fa fa-user fa-lg"></i> Profile</a></li>
@@ -41,6 +42,8 @@
           </ul>
         </li>
       </ul>
+      <p style="float: right;padding: 9px;
+    color: white;">Admin</p>
     </header>
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
