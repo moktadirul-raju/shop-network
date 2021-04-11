@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
-@section('title','All User')
-@section('page-title','All User')
+@section('title','In App Product')
 
 @push('css')
 
