@@ -7,11 +7,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Brian2694\Toastr\Facades\Toastr;
+use Intervention\Image\Facades\Image;
 use App\Model\User;
 use App\Model\Shop;
-use App\Model\Comment;
+use App\Model\ShopImage;
+use App\Model\ShopFacility;
 use App\Model\Review;
+use App\Model\Comment;
+use App\Model\Follow;
+use App\Model\Wishlist;
 use App\Model\PaypalInfo;
+use App\Model\Policy;
 
 class DashboardController extends Controller
 {
@@ -31,6 +37,18 @@ class DashboardController extends Controller
         if(isset($request->password)){
             $admin->password = Hash::make($request->password);
         }
+        if($request->file('image') != null) {
+            $this->validate($request,['image'=>'mimes:jpg,png,jpeg']);
+            if(file_exists($admin->image) AND !empty($admin->image)){
+                unlink($admin->image);
+            }
+            $image = $request->file('image');
+            $imageName = time().$image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(300, 300);
+            $image_resize->save('images/user/' .$imageName);
+            $admin->image = 'images/user/'.$imageName;
+        }
         $admin->save();
         Toastr::info('Profile Updated Successfully','Success');
         return redirect()->route('admin.profile');
@@ -39,6 +57,72 @@ class DashboardController extends Controller
     public function allUser(){
     	$users = User::latest()->get();
     	return view('admin.all_user',compact('users'));
+    }
+
+    public function editUser($id){
+        $user = User::findOrFail($id);
+        return view('admin.edit_user',compact('user'));
+    }
+
+    public function updateUser(Request $request, $id){
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->nickname = $request->nickname;
+        $user->email = $request->email;
+        $user->mobile = $request->mobile;
+        if(isset($request->password)){
+            $user->password = Hash::make($request->password);
+        }
+        if($request->file('image') != null) {
+            $this->validate($request,['image'=>'mimes:jpg,png,jpeg']);
+            if(file_exists($user->image) AND !empty($user->image)){
+                unlink($user->image);
+            }
+            $image = $request->file('image');
+            $imageName = time().$image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(300, 300);
+            $image_resize->save('images/user/' .$imageName);
+            $user->image = 'images/user/'.$imageName;
+        } 
+        $user->save();
+        Toastr::info('User Update Successfully');
+        return redirect()->back();
+    }
+
+    public function deleteUser($id){
+        $user = User::findOrFail($id);
+        $shop = Shop::where('user_id',$id)->first();
+        if(isset($shop)){
+            $images = ShopImage::where('shop_id',$shop->id)->get();
+            foreach($images as $image){
+               if(file_exists($image->image) AND !empty($image->image)){
+                    unlink($image->image);
+                } 
+                $image->delete();
+            }
+            $facilities = ShopFacility::where('shop_id',$shop->id)->get();
+            foreach($facilities as $facility){
+                $facility->delete();
+            }
+
+            Review::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+            Comment::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+            Follow::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+            Wishlist::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+
+            $shop->delete();
+        }
+        if(file_exists($user->image) AND !empty($user->image)){
+            unlink($user->image);
+        }
+        Review::whereIn('user_id',$user->pluck('id','id'))->delete();
+        Comment::whereIn('user_id',$user->pluck('id','id'))->delete();
+        Follow::whereIn('user_id',$user->pluck('id','id'))->delete();
+        Wishlist::whereIn('user_id',$user->pluck('id','id'))->delete();
+        $user->delete();
+        Toastr::info('User Deleted Successfully');
+        return redirect()->back();
     }
 
     public function searchUser(Request $request){
@@ -50,11 +134,37 @@ class DashboardController extends Controller
         return view('admin.all_user',compact('users'));        
     }
 
+    public function export()
+    {
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=file.csv",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+        $reviews = Reviews::getReviewExport($this->hw->healthwatchID)->get();
+        $columns = array('ReviewID', 'Provider', 'Title', 'Review', 'Location', 'Created', 'Anonymous', 'Escalate', 'Rating', 'Name');
+
+        $callback = function() use ($reviews, $columns)
+        {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach($reviews as $review) {
+                fputcsv($file, array($review->reviewID, $review->provider, $review->title, $review->review, $review->location, $review->review_created, $review->anon, $review->escalate, $review->rating, $review->name));
+            }
+            fclose($file);
+        };
+        return Response::stream($callback, 200, $headers);
+    }
+
     public function pendingShop(){
         $data = Shop::where('approve_status',0);
         $data->with([
-            'category'=>function($query){
-                $query->select('id','category');
+            'user'=>function($query){
+                $query->select('id','name');
             }
         ]);
         $shops = $data->oldest()->get();
@@ -65,8 +175,8 @@ class DashboardController extends Controller
     public function approvedShop(){
         $data = Shop::where('approve_status',1);
         $data->with([
-            'category'=>function($query){
-                $query->select('id','category');
+            'user'=>function($query){
+                $query->select('id','name');
             }
         ]);
         $shops = $data->oldest()->get();
@@ -77,8 +187,8 @@ class DashboardController extends Controller
     public function rejectedShop(){
         $data = Shop::where('approve_status',2);
         $data->with([
-            'category'=>function($query){
-                $query->select('id','category');
+            'user'=>function($query){
+                $query->select('id','name');
             }
         ]);
         $shops = $data->oldest()->get();
@@ -139,5 +249,19 @@ class DashboardController extends Controller
         Toastr::info('Paypal Info Update Successfully');
         $paypalInfo->save();
         return redirect()->back();
+    }
+
+    public function privacyPolicy(){
+        $policy = Policy::first();
+        return view('admin.pages.privacy_policy',compact('policy'));
+    }
+
+    public function updatePolicy(Request $request){
+        $policy = Policy::first();
+        $policy->content = $request->content;
+        $policy->url = $request->url;
+        $policy->save();
+        Toastr::info('Policy Update Successfully');
+        return view('admin.pages.privacy_policy',compact('policy'));
     }
 }

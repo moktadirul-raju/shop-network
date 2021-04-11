@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 
 class UserController extends Controller
@@ -86,21 +87,26 @@ class UserController extends Controller
     }
 
     public function updateProfile(Request $request){
-        
-        $user = auth()->userOrFail();
-        if(User::where('email',$request->email)->exists()){
-            return response()->json([
-                'message' => 'Email Already Taken'
-            ]);
-        } elseif(User::where('mobile',$request->mobile)->exists()){
-            return response()->json([
-                'message' => 'Email Already Taken'
-            ]);
+        $user = auth()->user();
+        $user->name = $request->name ? $request->name : $user->name;
+        $user->nickname = $request->nickname ? $request->nickname : $user->nickname;
+        $user->email = $request->email ? $request->email : $user->email;
+        $user->mobile = $request->mobile ? $request->mobile : $user->mobile;
+        if(isset($request->password)){
+            $user->password = Hash::make($request->password);
         }
-        $user->name = $request->name?$request->name:$user->name;
-        $user->nickname = $request->nickname;
-        $user->email = $request->email;
-        $user->mobile = $request->mobile?$request->name:$user->mobile;
+        if($request->file('image') != null) {
+            $this->validate($request,['image'=>'mimes:jpg,png,jpeg']);
+            if(file_exists($user->image) AND !empty($user->image)){
+                unlink($user->image);
+            }
+            $image = $request->file('image');
+            $imageName = time().$image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(300, 300);
+            $image_resize->save('images/user/' .$imageName);
+            $user->image = 'images/user/'.$imageName;
+        } 
         $user->save();
         return response()->json([
             'message' => 'Profile Update Successfully',
@@ -127,10 +133,14 @@ class UserController extends Controller
     
     public function logout()
     {
-    	return 'ok';
         auth()->logout(true);
-
         return response()->json(['message' => 'User successfully signed out']);
+    }
+
+    public function goOfline(){
+        $user = Auth::user();
+        $user->online_status = 0;
+        $user->save();
     }
 
     // public function logout (Request $request) {

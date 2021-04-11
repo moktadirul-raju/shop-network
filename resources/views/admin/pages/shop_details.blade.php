@@ -113,6 +113,10 @@
 							<th>{{ $shop->linkedin_link != null? $shop->linkedin_link : '' }}</th>
 						</tr>
 						<tr>
+							<th>Youtube Link</th>
+							<th>{{ $shop->youtube_link != null? $shop->youtube_link : '' }}</th>
+						</tr>
+						<tr>
 							<th>Description</th>
 							<th>{{ $shop->description }}</th>
 						</tr>

@@ -152,7 +152,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="">Facilities</label>
-							<select name="facilites[]" id="" multiple="multiple" class="multiple form-control">
+							<select name="facilities[]" id="" multiple="multiple" class="multiple form-control">
 								<option value="">Select Facilities</option>
 								@foreach($facilites as $facility)
 								<option value="{{ $facility->id }}">

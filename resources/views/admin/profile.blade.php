@@ -7,8 +7,9 @@
 		<div class="tile-header">
 			<h2>Admin Profile</h2>
 		</div>
+		
 		<div class="tile-body">
-			<form action="{{ route('admin.profile') }}" method="POST" role="form">
+			<form action="{{ route('admin.profile') }}" method="POST" role="form" enctype="multipart/form-data">
 				@csrf
 				@method('PUT')		
 				<div class="form-group">
@@ -22,6 +23,10 @@
 				<div class="form-group">
 					<label for="">Mobile</label>
 					<input type="text" name="mobile" class="form-control" id="" value="{{ Auth::user()->mobile }}">
+				</div>
+				<div class="form-group">
+					<label for="">Profile Picture</label>
+					<input type="file" name="image" class="form-control" id="" >
 				</div>
 				<div class="form-group">
 					<label for="">Password</label>

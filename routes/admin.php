@@ -26,6 +26,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::put('profile', 'DashboardController@profileUpdate')
         ->name('profile');
     Route::get('user', 'DashboardController@allUser')->name('user');
+    Route::get('edit-user/{id}', 'DashboardController@editUser')
+        ->name('edit-user');
+    Route::put('update-user/{id}', 'DashboardController@updateUser')
+        ->name('update-user');
+    Route::delete('delete-user/{id}', 'DashboardController@deleteUser')
+        ->name('delete-user');        
     Route::post('search-user', 'DashboardController@searchUser')
         ->name('search-user');
     Route::get('sohp/pending','DashboardController@pendingShop')    
@@ -50,12 +56,18 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('paypal-info-update');    
     Route::resource('facility', 'FacilityController');
     Route::resource('shop', 'ShopController');
+    Route::delete('shop-image-remove/{id}','ShopController@shopImageRemove')->name('shop-image-remove');
     Route::resource('category', 'CategoryController');
     Route::resource('division', 'DivisionController');
     Route::resource('district', 'DistrictController');
     Route::resource('upazila', 'UpazilaController');
     Route::resource('notification', 'NotificationController');
     Route::resource('banner', 'BannerController');
+    Route::resource('location', 'LocationController');
+    Route::resource('about', 'AboutController');
+    Route::get('privacy_policy','DashboardController@privacyPolicy')->name('privacy_policy');
+    Route::put('policy-update','DashboardController@updatePolicy')->name('policy-update');
+    Route::resource('header-image', 'HeaderImageController');
 });
 
 

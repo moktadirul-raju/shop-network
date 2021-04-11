@@ -26,6 +26,7 @@
             <th>Mobile</th>
             <th>Email</th>
             <th>Join</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -42,7 +43,18 @@
             <td>{{ $user->mobile }}</td>
             <td>{{ $user->email }}</td>
             <td>{{ $user->created_at != null ? $user->created_at->format('d M y') : '' }}</td>
+            <td>
+            <a href="{{ route('admin.edit-user',$user->id) }}" class="btn btn-success"><i class="fa fa-edit"></i></a>
+            <button class="btn btn-danger waves-effect" type="button" onclick="deleteItem({{ $user->id }})">
+                  <i class="fa fa-trash"></i>
+              </button>
+              <form id="delete-form-{{ $user->id }}" action="{{ route('admin.delete-user',$user->id) }}" method="POST" style="display: none;">
+                  @csrf
+                  @method('DELETE')
+              </form>
+          </td>
           </tr>
+          
           @endforeach
         </tbody>
       </table>
@@ -54,5 +66,38 @@
 
 
 @push('js')
-    <script type="text/javascript">$('#usersTable').DataTable();</script>
+    <script type="text/javascript">
+      $('#usersTable').DataTable();
+      function deleteItem(id) {
+      swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          confirmButtonClass: 'btn btn-success',
+          cancelButtonClass: 'btn btn-danger',
+          buttonsStyling: false,
+          reverseButtons: true
+      }).then((result) => {
+          if (result.value) {
+              event.preventDefault();
+              document.getElementById('delete-form-'+id).submit();
+          } else if (
+              // Read more about handling dismissals
+          result.dismiss === swal.DismissReason.cancel
+          ) {
+              swal(
+                  'Cancelled',
+                  'Your data is safe :)',
+                  'error'
+              )
+          }
+      })
+    }
+    </script>
+
 @endpush
