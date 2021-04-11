@@ -9,13 +9,13 @@
 @section('content')
 <div class="col-md-12">
   <a href="{{ route('admin.in-app-purchases.create') }}" class="btn btn-warning" style="float: right;">Add In App Product</a>
-  <form action="{{ route('admin.search-user') }}" method="POST" class="form-inline text-right">
+  {{-- <form action="{{ route('admin.search-user') }}" method="POST" class="form-inline text-right">
         @csrf
         <div class="form-group mb-2">
-            <input type="test" name="data" class="form-control" placeholder="Name/Email/Mobile">
+            <input type="test" name="data" class="form-control" placeholder="">
         </div>
         &nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i>&nbsp;Search</button>
-    </form>
+    </form> --}}
 
   <div class="tile">
     <div class="tile-body">
