@@ -153,6 +153,14 @@
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
+							<label for="">Youtube Link</label>
+							<input type="text" name="youtube_link" class="form-control" placeholder="Youtube Link">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
 							<label for="">Facilities</label>
 							<select name="facilities[]" id="" multiple="multiple" class="multiple form-control">
 								<option value="">Select Facilities</option>
@@ -176,9 +184,16 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6"></div>
+					<div class="col-md-3">
+						<label for="">Latitude</label>
+						<input type="text" name="lat" class="form-control" placeholder="Latitude">
+					</div>
+					<div class="col-md-3">
+						<label for="">Longitude</label>
+						<input type="text" name="lan" class="form-control" placeholder="Longitude">
+					</div>
 					<div class="col-md-6">
-						<button type="submit" class="btn btn-success btn-block">Add</button>
+						<button type="submit" class="btn btn-success btn-block mt-4">Add</button>
 					</div>
 				</div>
 			</form>

@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title','Add Shop')
+@section('title','Edit Shop')
 
 @section('content')
 
@@ -205,9 +205,16 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6"></div>
+					<div class="col-md-3">
+						<label for="">Latitude</label>
+						<input type="text" name="lat" class="form-control" value="{{ $shop->lat }}">
+					</div>
+					<div class="col-md-3">
+						<label for="">Longitude</label>
+						<input type="text" name="lan" class="form-control" value="{{ $shop->lan }}">
+					</div>
 					<div class="col-md-6">
-						<button type="submit" class="btn btn-success btn-block">Update</button>
+						<button type="submit" class="btn btn-success btn-block mt-4">Update</button>
 					</div>
 				</div>
 			</form>

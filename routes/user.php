@@ -15,6 +15,7 @@ Route::group(['middleware'=>'auth:api'],function () {
    	->name('update-profile');
    Route::get('all-category','ShopActivityController@allCategory'); 
    Route::get('all-facility','ShopActivityController@allFacility'); 
+   Route::get('in-app-purchases','ShopActivityController@inAppPurchases'); 
    Route::post('add-shop','ShopActivityController@addShop');  
    Route::delete('shop-image-remove/{id}','ShopActivityController@shopImageRemove');
    Route::delete('remove-shop/{id}','ShopActivityController@removeShop');  

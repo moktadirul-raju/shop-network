@@ -1,7 +1,7 @@
   <div class="app-sidebar__user" >
 
 
-  <ul class="app-menu" >
+  <ul class="app-menu">
     <li><a class="app-menu__item {{ Request::is('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
 
      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">Shop Management</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -23,7 +23,8 @@
         <li><a class="treeview-item {{ Request::is('admin/category') ? 'active' : '' }}" href="{{ route('admin.category.index') }}"><i class="icon fa fa-circle-o"></i>Add Category</a></li>
         <li><a class="treeview-item {{ Request::is('admin/facility') ? 'active' : '' }}" href="{{ route('admin.facility.index') }}"><i class="icon fa fa-circle-o"></i>
         Facilites</a></li>
-        
+        <li><a class="treeview-item {{ Request::is('admin/in-app-purchases') ? 'active' : '' }}" href="{{ route('admin.in-app-purchases.index') }}"><i class="icon fa fa-circle-o"></i>
+        In App Purchased</a></li>
       </ul>
     </li>
 

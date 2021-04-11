@@ -65,6 +65,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('banner', 'BannerController');
     Route::resource('location', 'LocationController');
     Route::resource('about', 'AboutController');
+    Route::resource('in-app-purchases','PurchasesController');
     Route::get('privacy_policy','DashboardController@privacyPolicy')->name('privacy_policy');
     Route::put('policy-update','DashboardController@updatePolicy')->name('policy-update');
     Route::resource('header-image', 'HeaderImageController');

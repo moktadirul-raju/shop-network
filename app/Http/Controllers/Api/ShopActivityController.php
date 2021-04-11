@@ -17,6 +17,7 @@ use App\Model\Comment;
 use App\Model\Category;
 use App\Model\Facility;
 use App\Model\Banner;
+use App\Model\InAppPurchase;
 
 class ShopActivityController extends Controller
 {
@@ -66,6 +67,11 @@ class ShopActivityController extends Controller
     public function allBanner(){
         $banners = Banner::inRandomOrder()->get();
         return response()->json(['data'=>$banners]);
+    }
+
+    public function inAppPurchases(){
+        $apps = InAppPurchase::all();
+        return response()->json(['data'=> $apps]);
     }
 
     public function shopDetails($id){
