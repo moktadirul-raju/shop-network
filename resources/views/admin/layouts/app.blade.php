@@ -27,7 +27,14 @@
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
         <!-- User Menu-->
-        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+        @if(Auth::user()->image != null)
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu" style="padding:0px;padding-top: 5px;">
+           <img class="img-responsive" src="{{ asset(Auth::user()->image) }}" alt="User Image" style="height: 35px;width: 35px;border-radius: 50%;padding: 0px;">
+           @else
+           <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu">
+          <i class="fa fa-user fa-lg"></i>
+          @endif
+        </a>
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
             <li><a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="fa fa-user fa-lg"></i> Profile</a></li>
             <li><a class="dropdown-item" href="{{ route("admin-logout") }}"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>

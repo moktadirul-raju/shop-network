@@ -1,5 +1,5 @@
   <div class="app-sidebar__user">
-    <img class="app-sidebar__user-avatar" src="{{ asset(Auth::user()->image) }}" alt="User Image" style="height: 80px;">
+   
         <p class="app-sidebar__user-designation" style="white-space: normal;">
             {{ Auth::user()->name }}
           </p>
