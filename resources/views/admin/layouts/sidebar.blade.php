@@ -1,10 +1,9 @@
   <div class="app-sidebar__user">
-    
-    <div>
-      <p class="app-sidebar__user-name">{{ Auth::check() ? Auth::user()->name : '' }}</p>
-    </div>
-  </div>
-
+    <img class="app-sidebar__user-avatar" src="{{ asset(Auth::user()->image) }}" alt="User Image" style="height: 80px;">
+        <p class="app-sidebar__user-designation" style="white-space: normal;">
+            {{ Auth::user()->name }}
+          </p>
+      </div>
 
   <ul class="app-menu">
     <li><a class="app-menu__item {{ Request::is('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
@@ -31,16 +30,30 @@
         
       </ul>
     </li>
-    <li><a class="app-menu__item {{ Request::is('admin/banner') ? 'active' : '' }}" href="{{ route('admin.banner.index') }}"><i class="app-menu__icon fa fa-address-book"></i><span class="app-menu__label">Add Banner</span></a></li>
-    <li><a class="app-menu__item {{ Request::is('admin/header-image') ? 'active' : '' }}" href="{{ route('admin.header-image.index') }}"><i class="app-menu__icon fa fa-address-book"></i><span class="app-menu__label">Header Image</span></a></li>
-    <li><a class="app-menu__item {{ Request::is('admin/location') ? 'active' : '' }}" href="{{ route('admin.location.index') }}"><i class="app-menu__icon fa fa-map"></i><span class="app-menu__label">Popular Location</span></a></li>
-    <li><a class="app-menu__item {{ Request::is('admin/notification') ? 'active' : '' }}" href="{{ route('admin.notification.index') }}"><i class="app-menu__icon fa fa-bell"></i><span class="app-menu__label">Push Notification</span></a></li>
-    <li><a class="app-menu__item {{ Request::is('admin/paypal-info') ? 'active' : '' }}" href="{{ route('admin.paypal-info') }}"><i class="app-menu__icon fa fa-money"></i><span class="app-menu__label">Paypal Info</span></a></li>
+
+    <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-map"></i><span class="app-menu__label">Image Section</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <ul class="treeview-menu">
+        <li><a class="treeview-item {{ Request::is('admin/header-image') ? 'active' : '' }}" href="{{ route('admin.header-image.index') }}"><i class="icon fa fa-circle-o"></i>Header Image</a></li>
+        <li><a class="treeview-item {{ Request::is('admin/location') ? 'active' : '' }}" href="{{ route('admin.location.index') }}"><i class="icon fa fa-circle-o"></i>
+        Popular Location</a></li>
+        <li><a class="treeview-item {{ Request::is('admin/banner') ? 'active' : '' }}" href="{{ route('admin.banner.index') }}"><i class="icon fa fa-circle-o"></i>
+        Add Banner</a></li>
+        
+      </ul>
+    </li>
+
+
+
+
      <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-cog"></i><span class="app-menu__label">Settings</span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
         <li><a class="treeview-item {{ Request::is('admin/about') ? 'active' : '' }}" href="{{ route('admin.about.index') }}"><i class="icon fa fa-circle-o"></i>About & Setting</a></li>
         <li><a class="treeview-item {{ Request::is('admin/privacy_policy') ? 'active' : '' }}" href="{{ route('admin.privacy_policy') }}"><i class="icon fa fa-circle-o"></i>
         Privacy Policy</a></li>
+        <li><a class="treeview-item {{ Request::is('admin/paypal-info') ? 'active' : '' }}" href="{{ route('admin.paypal-info') }}"><i class="icon fa fa-circle-o"></i>
+        Paypal Info</a></li>
+        <li><a class="treeview-item {{ Request::is('admin/notification') ? 'active' : '' }}" href="{{ route('admin.notification.index') }}"><i class="icon fa fa-circle-o"></i>
+        Push Notification</a></li>
         
       </ul>
     </li>
