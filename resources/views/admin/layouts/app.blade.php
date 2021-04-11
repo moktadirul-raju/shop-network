@@ -42,7 +42,7 @@
           </ul>
         </li>
       </ul>
-      <p style="float: right;padding: 9px;
+      <p style="float: right;padding-top: 9px;padding-left: 5px;font-weight: bold;
     color: white;">Admin</p>
     </header>
     <!-- Sidebar menu-->
