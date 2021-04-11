@@ -20,7 +20,7 @@ class CreateShopsTable extends Migration
             $table->string('category_id')->nullable();
             $table->string('title')->nullable();
             $table->string('established_date')->nullable();
-            $table->string('country')->nullable();
+            $table->string('country_id')->nullable();
             $table->string('city')->nullable();
             $table->text('street_address')->nullable();
             $table->text('additional_address')->nullable();

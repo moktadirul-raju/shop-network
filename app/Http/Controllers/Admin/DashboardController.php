@@ -18,6 +18,7 @@ use App\Model\Follow;
 use App\Model\Wishlist;
 use App\Model\PaypalInfo;
 use App\Model\Policy;
+use App\Model\Currency;
 use Response;
 
 class DashboardController extends Controller
@@ -284,6 +285,18 @@ class DashboardController extends Controller
     public function paypalInfo(){
         $paypalInfo = PaypalInfo::first();
         return view('admin.pages.paypal_info',compact('paypalInfo'));
+    }
+
+    public function currency(){
+        $currency = Currency::first();
+        return view('admin.pages.currency',compact('currency'));
+    }
+
+    public function currencyUpdate(Request $request,$id){
+        $currency = Currency::find($id);
+        $currency->currency = $request->currency;
+        Toastr::info('Currency Update Successfully');
+        return view('admin.pages.currency',compact('currency'));
     }
 
     public function paypalInfoUpdate(Request $request){

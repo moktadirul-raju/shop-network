@@ -25,6 +25,8 @@
         Facilites</a></li>
         <li><a class="treeview-item {{ Request::is('admin/in-app-purchases') ? 'active' : '' }}" href="{{ route('admin.in-app-purchases.index') }}"><i class="icon fa fa-circle-o"></i>
         In App Purchased</a></li>
+        <li><a class="treeview-item {{ Request::is('admin/country') ? 'active' : '' }}" href="{{ route('admin.country.index') }}"><i class="icon fa fa-circle-o"></i>
+        Country</a></li>
       </ul>
     </li>
 
@@ -47,6 +49,8 @@
         <li><a class="treeview-item {{ Request::is('admin/about') ? 'active' : '' }}" href="{{ route('admin.about.index') }}"><i class="icon fa fa-circle-o"></i>About & Setting</a></li>
         <li><a class="treeview-item {{ Request::is('admin/privacy_policy') ? 'active' : '' }}" href="{{ route('admin.privacy_policy') }}"><i class="icon fa fa-circle-o"></i>
         Privacy Policy</a></li>
+        <li><a class="treeview-item {{ Request::is('admin/currency') ? 'active' : '' }}" href="{{ route('admin.currency') }}"><i class="icon fa fa-circle-o"></i>
+        Currency</a></li>
         <li><a class="treeview-item {{ Request::is('admin/paypal-info') ? 'active' : '' }}" href="{{ route('admin.paypal-info') }}"><i class="icon fa fa-circle-o"></i>
         Paypal Info</a></li>
         <li><a class="treeview-item {{ Request::is('admin/notification') ? 'active' : '' }}" href="{{ route('admin.notification.index') }}"><i class="icon fa fa-circle-o"></i>

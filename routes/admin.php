@@ -50,6 +50,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('review');        
     Route::get('approve-reject','DashboardController@approveReject')
         ->name('approve-reject');
+    Route::get('currency','DashboardController@currency')    
+        ->name('currency');
+    Route::post('currency-update/{id}','DashboardController@currencyUpdate')    
+        ->name('currency-update');         
     Route::get('paypal-info','DashboardController@paypalInfo')    
         ->name('paypal-info');
     Route::put('paypal-info-update','DashboardController@paypalInfoUpdate')
@@ -58,8 +62,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('shop', 'ShopController');
     Route::delete('shop-image-remove/{id}','ShopController@shopImageRemove')->name('shop-image-remove');
     Route::resource('category', 'CategoryController');
-    Route::resource('division', 'DivisionController');
-    Route::resource('district', 'DistrictController');
+    Route::resource('country', 'CountryController');
+    Route::resource('city', 'CityController');
     Route::resource('upazila', 'UpazilaController');
     Route::resource('notification', 'NotificationController');
     Route::resource('banner', 'BannerController');

@@ -62,7 +62,7 @@
 						<tr>
 							<th>Country</th>
 							<th>
-								{{ $shop->country != null ? $shop->country: '' }}</th>
+								{{ $shop->country_id != null ? $shop->country->country: '' }}</th>
 						</tr>
 						<tr>
 							<th>City</th>

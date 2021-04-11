@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Model\Division;
-use App\Model\District;
+use App\Model\Country;
+use App\Model\City;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 
-class DivisionController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        $divisions = Division::all();
-        return view('admin.address.division',compact('divisions'));
+        $countries = Country::all();
+        return view('admin.country.country',compact('countries'));
     }
 
     /**
@@ -39,13 +39,12 @@ class DivisionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['english_name'=>'required']);
-        $division = new Division();
-        $division->english_name = $request->english_name;
-        $division->bangla_name = $request->bangla_name;
-        $division->save();
-        Toastr::success('Division Added Successfully');
-        return redirect()->route('admin.division.index');
+        $request->validate(['country'=>'required']);
+        $country = new Country();
+        $country->country = $request->country;
+        $country->save();
+        Toastr::success('Country Added Successfully');
+        return redirect()->route('admin.country.index');
     }
 
     /**
@@ -56,10 +55,10 @@ class DivisionController extends Controller
      */
     public function show($id)
     {
-        $division = Division::find($id);
-        $districts = District::where("division_id",$id)->get();
-        $divisions = Division::all();
-        return view('admin.address.district',compact('division','districts','divisions'));
+        $country = Country::find($id);
+        $cities = City::where("Country_id",$id)->get();
+        $countries = Country::all();
+        return view('admin.country.City',compact('country','cities','countries'));
     }
 
     /**
@@ -70,9 +69,9 @@ class DivisionController extends Controller
      */
     public function edit($id)
     {
-        $divisions = Division::all();
-        $division = Division::find($id);
-        return view('admin.address.division', compact('divisions','division'));
+        $countries = Country::all();
+        $country = Country::find($id);
+        return view('admin.country.country', compact('countries','country'));
     }
 
     /**
@@ -84,12 +83,11 @@ class DivisionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate(['english_name' => 'required']);
-        $division = Division::find($id);
-        $division->english_name = $request->english_name;
-        $division->bangla_name = $request->bangla_name;
-        $division->save();
-        return redirect()->route('admin.division.index')->with(['message' => 'Division Update Successfully', 'type' => 'info']);
+        $request->validate(['country' => 'required']);
+        $country = Country::find($id);
+        $country->country = $request->country;
+        $country->save();
+        return redirect()->route('admin.country.index')->with(['message' => 'country Update Successfully', 'type' => 'info']);
     }
 
     /**
@@ -100,8 +98,10 @@ class DivisionController extends Controller
      */
     public function destroy($id)
     {
-        Division::find($id)->delete();
-        Toastr::error('Division Deleted Successfully');
-        return redirect()->route('admin.division.index');
+        $country = Country::find($id);
+        City::whereIn('country_id',$country->pluck('id','id'));
+        $country->delete();
+        Toastr::error('Country Deleted Successfully');
+        return redirect()->route('admin.country.index');
     }
 }

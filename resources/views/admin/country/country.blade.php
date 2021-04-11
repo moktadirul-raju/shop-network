@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Division Page')
+@section('title', 'country Page')
 @push('css')
 
 @endpush
@@ -8,24 +8,24 @@
 <div class="col-md-12">
     <div class="tile">
         <div class="tile-header">
-            <h5 style="float: left;">Divisions</h5>
+            <h5 style="float: left;">Country List</h5>
             <span style="float: right;">
-                 @if(isset($division))
-         <form action="{{ route('admin.division.update',$division->id) }}" method="POST" class="form-inline">
+                 @if(isset($country))
+         <form action="{{ route('admin.country.update',$country->id) }}" method="POST" class="form-inline">
         @csrf
         @method('PUT')
         <div class="form-group mb-2">
-            <input type="test" name="english_name" class="form-control" value="{{ $division->english_name }}">
-            <input type="test" name="bangla_name" class="form-control" value="{{ $division->bangla_name }}">
+            <input type="test" name="country" class="form-control" value="{{ $country->country }}">
+            
         </div>
         &nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-edit"></i>&nbsp;Update</button>
     </form>
     @else
-        <form action="{{ route('admin.division.store') }}" method="POST" class="form-inline text-right">
+        <form action="{{ route('admin.country.store') }}" method="POST" class="form-inline text-right">
             @csrf
             <div class="form-group mb-2">
-                <input type="test" name="english_name" class="form-control" placeholder="English Name">
-                <input type="test" name="bangla_name" class="form-control" placeholder="Bangla Name">
+                <input type="test" name="country" class="form-control" placeholder="Country Name">
+                
             </div>
             &nbsp;<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-plus"></i>&nbsp;Add New</button>
         </form>
@@ -37,37 +37,33 @@
         <thead>
             <tr>
                 <th>Serial No.</th>
-                <th>English Name</th>
-                <th>Bangla Name</th>
-                <th>District</th>
-                <th>View District</th>
+                <th>Country</th>
+                <th>Total City</th>
+                <th>View City</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($divisions as $division)
+            @foreach($countries as $country)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $division->english_name }}</td>
-                <td>{{ $division->bangla_name }}</td>
-                
-                
+                <td>{{ $country->country }}</td>                
                 <td>
-                    {{ $division->districts->count() }}
+                    {{ $country->cities->count() }}
                 </td>
                 <td>
-                    <a class="btn btn-success" href="{{ route('admin.division.show',$division->id) }}">
+                    <a class="btn btn-success" href="{{ route('admin.country.show',$country->id) }}">
                         <i class="fa fa-eye"></i>
                     </a>
                 </td>
                 <td>
-                    <a href="{{ route('admin.division.edit',$division->id) }}" class="btn btn-info">
+                    <a href="{{ route('admin.country.edit',$country->id) }}" class="btn btn-info">
                         <i class="fa fa-edit"></i>
                     </a>
-                    <button class="btn btn-danger waves-effect" type="button" onclick="deleteItem({{ $division->id }})">
+                    <button class="btn btn-danger waves-effect" type="button" onclick="deleteItem({{ $country->id }})">
                         <i class="fa fa-trash"></i>
                     </button>
-                    <form id="delete-form-{{ $division->id }}" action="{{ route('admin.division.destroy',$division->id) }}" method="POST" style="display: none;">
+                    <form id="delete-form-{{ $country->id }}" action="{{ route('admin.country.destroy',$country->id) }}" method="POST" style="display: none;">
                         @csrf
                         @method('DELETE')
                     </form>

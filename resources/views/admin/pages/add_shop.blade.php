@@ -46,7 +46,14 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="">Country</label>
-							<input type="text" name="country" class="form-control" placeholder="Country">
+							<select name="country_id" id="" class="single form-control">
+							<option value="">Select Country</option>
+							@foreach($countries as $country)
+							<option value="{{ $country->id }}">
+								{{ $country->country }}
+							</option>
+							@endforeach
+						</select>
 						</div>
 					</div>
 					<div class="col-md-4">

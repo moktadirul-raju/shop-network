@@ -16,6 +16,7 @@ use App\Model\Comment;
 use App\Model\Follow;
 use App\Model\Wishlist;
 use App\Model\User;
+use App\Model\Country;
 
 class ShopController extends Controller
 {
@@ -27,8 +28,9 @@ class ShopController extends Controller
 
     public function create(){
     	$facilites = Facility::all();
-    	$categories = Category::all();
-    	return view('admin.pages.add_shop',compact('facilites','categories'));
+        $categories = Category::all();
+    	$countries = Country::all();
+    	return view('admin.pages.add_shop',compact('facilites','categories','countries'));
     }
 
     public function store(Request $request){
@@ -44,7 +46,7 @@ class ShopController extends Controller
         $shop->category_id = $request->category_id;
         $shop->title = $request->title;
         $shop->established_date = $request->established_date;
-        $shop->country = $request->country;
+        $shop->country_id = $request->country_id;
         $shop->city = $request->city;
         $shop->street_address = $request->street_address;
         $shop->additional_address = $request->additional_address;
@@ -101,7 +103,8 @@ class ShopController extends Controller
         $shop = Shop::findOrFail($id);
         $facilities = Facility::all();
         $categories = Category::all();
-        return view('admin.pages.edit_shop',compact('shop','facilities','categories'));
+        $countries = Country::all();
+        return view('admin.pages.edit_shop',compact('shop','facilities','categories','countries'));
     }
 
     public function shopImageRemove($id){
@@ -120,7 +123,7 @@ class ShopController extends Controller
         $shop->category_id = $request->category_id;
         $shop->title = $request->title;
         $shop->established_date = $request->established_date;
-        $shop->country = $request->country;
+        $shop->country_id = $request->country_id;
         $shop->city = $request->city;
         $shop->street_address = $request->street_address;
         $shop->additional_address = $request->additional_address;
