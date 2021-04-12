@@ -46,7 +46,7 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="">Country</label>
-							<select name="country_id" id="" class="single form-control">
+							<select name="country_id" id="country" class="single form-control" onchange="getCity()">
 							<option value="">Select Country</option>
 							@foreach($countries as $country)
 							<option value="{{ $country->id }}">
@@ -59,7 +59,12 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="">City</label>
-							<input type="text" name="city" class="form-control" placeholder="City">
+							<select name="city" class="single form-control"
+									id="city">
+								<optgroup>
+									<option value="" >Select City</option>
+								</optgroup>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -200,7 +205,186 @@
 						<input type="text" name="lan" class="form-control" placeholder="Longitude">
 					</div>
 					<div class="col-md-6">
-						<button type="submit" class="btn btn-success btn-block mt-4">Add</button>
+						<h2>Map View</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h5>Saturday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="sat_opening_status" id="" class="form-control">
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="sat_opening_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="sat_closing_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h5>Sunday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="sun_opening_status" id="" class="form-control">
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="sun_opening_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="sun_closing_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h5>Monday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="mon_opening_status" id="" class="form-control">
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="mon_opening_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="mon_closing_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h5>Tuesday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="tues_opening_status" id="" class="form-control">
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="tues_opening_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="tues_closing_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h5>Wednesday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="wed_opening_status" id="" class="form-control">
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="wed_opening_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="wed_closing_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h5>Thursday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="thus_opening_status" id="" class="form-control">
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="thus_opening_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="thus_closing_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h5>Friday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="fri_opening_status" id="" class="form-control">
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="fri_opening_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="fri_closing_time" class="form-control" placeholder="Time">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<button type="submit" class="btn btn-info btn-block mt-5">Add</button>
 					</div>
 				</div>
 			</form>
@@ -221,5 +405,25 @@
       	autoclose: true,
       	todayHighlight: true
       });
+
+	function getCity(){
+        $('#city') .find('option') .remove() .end() .append('<option value="">Select City</option>');
+        var id = document.getElementById('country').value;
+
+         axios.get(`/api/get-city/${id}`)
+        .then(function (response) {
+            var list = response.data;
+            var select = document.getElementById("city");
+            for(i = 0; i < list.length ;i ++){
+                var el = document.createElement("option");
+                var cities = list[i];
+                var cityName = cities.city_name;
+                var cityId = cities.id;
+                el.textContent = cityName;
+                el.value = cityName;
+                select.appendChild(el);
+            }
+        });
+    }
 </script>
 @endpush

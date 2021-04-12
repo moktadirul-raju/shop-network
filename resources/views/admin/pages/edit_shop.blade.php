@@ -45,20 +45,31 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="">Country</label>
-							<select name="country_id" id="" class="single form-control" style="width: 100%;">
-							<option value="{{ $shop->country_id }}">{{ $shop->country->country }}</option>
-							@foreach($countries as $country)
-							<option value="{{ $country->id }}">
-								{{ $country->country }}
-							</option>
-							@endforeach
+							<select name="country_id" id="country" class="single form-control" style="width: 100%;" 
+								onchange="getCity()">
+							<optgroup>
+                                <option value="{{ $shop->country_id }}">
+                                    {{ $shop->country->country }}
+                                </option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}">
+                                        {{ $country->country }}</option>
+                                @endforeach
+                            </optgroup>
 						</select>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
 							<label for="">City</label>
-							<input type="text" name="city" class="form-control" value="{{ $shop->city }}">
+							<select name="city" class="single form-control"
+                                        id="city">
+                                    <optgroup>
+                                        <option value="{{ $shop->city != null? $shop->city : '' }}" >
+                                            {{ $shop->city != null? $shop->city : '' }}
+                                        </option>
+                                    </optgroup>
+                                </select>
 						</div>
 					</div>
 				</div>
@@ -221,7 +232,263 @@
 						<input type="text" name="lan" class="form-control" value="{{ $shop->lan }}">
 					</div>
 					<div class="col-md-6">
-						<button type="submit" class="btn btn-success btn-block mt-4">Update</button>
+						<h2>Map View</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h5>Saturday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="sat_opening_status" id="" class="form-control">
+									@if(sizeof($shop->saturday) > 0)
+									<option value="{{ $shop->saturday[0]->opening_status }}">
+										{{ $shop->saturday[0]->opening_status == 'open' ? 'Open' : 'Close' }}
+										@if($shop->saturday[0]->opening_status == 'open')
+										<option value="close">Close</option>
+										@elseif($shop->saturday[0]->opening_status == 'close')
+										<option value="open">Open</option>
+										@endif
+									</option>
+									@else 
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+									@endif
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="sat_opening_time" class="form-control" value="{{ sizeof($shop->saturday) > 0 ? $shop->saturday[0]->opening_time : ''}}">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="sat_closing_time" class="form-control" value="{{ sizeof($shop->saturday) > 0 ? $shop->saturday[0]->closing_time : ''}}">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h5>Sunday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="sun_opening_status" id="" class="form-control">
+									@if(sizeof($shop->sunday) > 0)
+									<option value="{{ $shop->sunday[0]->opening_status }}">
+										{{ $shop->sunday[0]->opening_status == 'open' ? 'Open' : 'Close' }}
+										@if($shop->sunday[0]->opening_status == 'open')
+										<option value="close">Close</option>
+										@elseif($shop->sunday[0]->opening_status == 'close')
+										<option value="open">Open</option>
+										@endif
+									</option>
+									@else 
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+									@endif
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="sun_opening_time" class="form-control" value="{{ sizeof($shop->sunday) > 0 ? $shop->sunday[0]->opening_time : ''}}">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="sun_closing_time" class="form-control" value="{{ sizeof($shop->sunday) > 0 ? $shop->sunday[0]->closing_time : ''}}">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h5>Monday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="mon_opening_status" id="" class="form-control">
+									@if(sizeof($shop->monday) > 0)
+									<option value="{{ $shop->monday[0]->opening_status }}">
+										{{ $shop->monday[0]->opening_status == 'open' ? 'Open' : 'Close' }}
+										@if($shop->monday[0]->opening_status == 'open')
+										<option value="close">Close</option>
+										@elseif($shop->monday[0]->opening_status == 'close')
+										<option value="open">Open</option>
+										@endif
+									</option>
+									@else 
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+									@endif
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="mon_opening_time" class="form-control" value="{{ sizeof($shop->monday) > 0 ? $shop->monday[0]->opening_time : ''}}">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="mon_closing_time" class="form-control" value="{{ sizeof($shop->monday) > 0 ? $shop->monday[0]->closing_time : ''}}">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h5>Tuesday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="tues_opening_status" id="" class="form-control">
+									@if(sizeof($shop->tuesday) > 0)
+									<option value="{{ $shop->tuesday[0]->opening_status }}">
+										{{ $shop->tuesday[0]->opening_status == 'open' ? 'Open' : 'Close' }}
+										@if($shop->tuesday[0]->opening_status == 'open')
+										<option value="close">Close</option>
+										@elseif($shop->tuesday[0]->opening_status == 'close')
+										<option value="open">Open</option>
+										@endif
+									</option>
+									@else 
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+									@endif
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="tues_opening_time" class="form-control" value="{{ sizeof($shop->tuesday) > 0 ? $shop->tuesday[0]->opening_time : ''}}">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="tues_closing_time" class="form-control" value="{{ sizeof($shop->tuesday) > 0 ? $shop->tuesday[0]->closing_time : ''}}">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h5>Wednesday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="wed_opening_status" id="" class="form-control">
+									@if(sizeof($shop->wednesday) > 0)
+									<option value="{{ $shop->wednesday[0]->opening_status }}">
+										{{ $shop->wednesday[0]->opening_status == 'open' ? 'Open' : 'Close' }}
+										@if($shop->wednesday[0]->opening_status == 'open')
+										<option value="close">Close</option>
+										@elseif($shop->wednesday[0]->opening_status == 'close')
+										<option value="open">Open</option>
+										@endif
+									</option>
+									@else 
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+									@endif
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="wed_opening_time" class="form-control" value="{{ sizeof($shop->wednesday) > 0 ? $shop->wednesday[0]->opening_time : ''}}">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="wed_closing_time" class="form-control" value="{{ sizeof($shop->wednesday) > 0 ? $shop->wednesday[0]->closing_time : ''}}">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h5>Thursday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="thus_opening_status" id="" class="form-control">
+									@if(sizeof($shop->thursday) > 0)
+									<option value="{{ $shop->thursday[0]->opening_status }}">
+										{{ $shop->thursday[0]->opening_status == 'open' ? 'Open' : 'Close' }}
+										@if($shop->thursday[0]->opening_status == 'open')
+										<option value="close">Close</option>
+										@elseif($shop->thursday[0]->opening_status == 'close')
+										<option value="open">Open</option>
+										@endif
+									</option>
+									@else 
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+									@endif
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="thus_opening_time" class="form-control" value="{{ sizeof($shop->thursday) > 0 ? $shop->thursday[0]->opening_time : ''}}">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="thus_closing_time" class="form-control" value="{{ sizeof($shop->thursday) > 0 ? $shop->thursday[0]->closing_time : ''}}">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<h5>Friday</h5><hr>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="">Status</label>
+								<select name="fri_opening_status" id="" class="form-control">
+									@if(sizeof($shop->friday) > 0)
+									<option value="{{ $shop->friday[0]->opening_status }}">
+										{{ $shop->friday[0]->opening_status == 'open' ? 'Open' : 'Close' }}
+										@if($shop->friday[0]->opening_status == 'open')
+										<option value="close">Close</option>
+										@elseif($shop->friday[0]->opening_status == 'close')
+										<option value="open">Open</option>
+										@endif
+									</option>
+									@else 
+									<option value="open">Open</option>
+									<option value="close">Close</option>
+									@endif
+								</select>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Opening Time</label>
+									<input type="text" name="fri_opening_time" class="form-control" value="{{ sizeof($shop->friday) > 0 ? $shop->friday[0]->opening_time : ''}}">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="">Closing Time</label>
+									<input type="text" name="fri_closing_time" class="form-control" value="{{ sizeof($shop->friday) > 0 ? $shop->friday[0]->closing_time : ''}}">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<button type="submit" class="btn btn-success btn-block mt-5">Update</button>
 					</div>
 				</div>
 			</form>
@@ -273,6 +540,28 @@
               )
           }
       })  
+    }
+</script>
+<script>
+	function getCity(){
+        $('#city') .find('option') .remove() .end() .append('<option value="">Select City</option>');
+        var id = document.getElementById('country').value;
+
+         axios.get(`/api/get-city/${id}`)
+        .then(function (response) {
+            var list = response.data;
+            console.log(list);
+            var select = document.getElementById("city");
+            for(i = 0; i < list.length ;i ++){
+                var el = document.createElement("option");
+                var cities = list[i];
+                var cityName = cities.city_name;
+                var cityId = cities.id;
+                el.textContent = cityName;
+                el.value = cityName;
+                select.appendChild(el);
+            }
+        });
     }
 </script>
 @endpush

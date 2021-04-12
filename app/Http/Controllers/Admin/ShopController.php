@@ -17,6 +17,13 @@ use App\Model\Follow;
 use App\Model\Wishlist;
 use App\Model\User;
 use App\Model\Country;
+use App\Model\Saturday;
+use App\Model\Sunday;
+use App\Model\Monday;
+use App\Model\Tuesday;
+use App\Model\Wednesday;
+use App\Model\Thursday;
+use App\Model\Friday;
 
 class ShopController extends Controller
 {
@@ -34,6 +41,7 @@ class ShopController extends Controller
     }
 
     public function store(Request $request){
+        //return $request;
     	$user = User::where('mobile',$request->mobile)->first();
     	if(isset($user)){
     		if(Shop::where('user_id',$user->id)->exists()){
@@ -90,6 +98,64 @@ class ShopController extends Controller
                 $images->save();
            }
         }
+
+        // Days Report
+        // Saturday
+        $sat_identify = ['shop_id' => $shop->id];
+        $sat_data = [
+            'opening_status' => $request->sat_opening_status,
+            'opening_time' => $request->sat_opening_time,
+            'closing_time' => $request->sat_closing_time
+        ];
+        Saturday::updateOrCreate($sat_identify,$sat_data);
+        // Sunday
+        $sun_identify = ['shop_id' => $shop->id];
+        $sun_data = [
+            'opening_status' => $request->sun_opening_status,
+            'opening_time' => $request->sun_opening_time,
+            'closing_time' => $request->sun_closing_time
+        ];
+        Sunday::updateOrCreate($sun_identify,$sun_data);
+        // Monday
+        $mon_identify = ['shop_id' => $shop->id];
+        $mon_data = [
+            'opening_status' => $request->mon_opening_status,
+            'opening_time' => $request->mon_opening_time,
+            'closing_time' => $request->mon_closing_time
+        ];
+        Monday::updateOrCreate($mon_identify,$mon_data);
+        // Tuesday
+        $tues_identify = ['shop_id' => $shop->id];
+        $tues_data = [
+            'opening_status' => $request->tues_opening_status,
+            'opening_time' => $request->tues_opening_time,
+            'closing_time' => $request->tues_closing_time
+        ];
+        Tuesday::updateOrCreate($tues_identify,$tues_data);
+        // Wednesday
+        $wed_identify = ['shop_id' => $shop->id];
+        $wed_data = [
+            'opening_status' => $request->wed_opening_status,
+            'opening_time' => $request->wed_opening_time,
+            'closing_time' => $request->wed_closing_time
+        ];
+        Wednesday::updateOrCreate($wed_identify,$wed_data);
+        // Thursday
+        $thus_identify = ['shop_id' => $shop->id];
+        $thus_data = [
+            'opening_status' => $request->thus_opening_status,
+            'opening_time' => $request->thus_opening_time,
+            'closing_time' => $request->thus_closing_time
+        ];
+        Thursday::updateOrCreate($thus_identify,$thus_data);
+         // Friday
+        $fri_identify = ['shop_id' => $shop->id];
+        $fri_data = [
+            'opening_status' => $request->fri_opening_status,
+            'opening_time' => $request->fri_opening_time,
+            'closing_time' => $request->fri_closing_time
+        ];
+        Friday::updateOrCreate($fri_identify,$fri_data);
         
         Toastr::success('Shop Added Successfully');
         return redirect()->route('admin.shop.index'); 
@@ -167,6 +233,71 @@ class ShopController extends Controller
                 $images->save();
            }
         }
+
+        // Days Report
+        // Saturday
+        $sat_identify = ['shop_id' => $shop->id];
+        $sat_data = [
+            'shop_id' => $shop->id,
+            'opening_status' => $request->sat_opening_status,
+            'opening_time' => $request->sat_opening_time,
+            'closing_time' => $request->sat_closing_time
+        ];
+        Saturday::updateOrCreate($sat_identify,$sat_data);
+        // Sunday
+        $sun_identify = ['shop_id' => $shop->id];
+        $sun_data = [
+            'shop_id' => $shop->id,
+            'opening_status' => $request->sun_opening_status,
+            'opening_time' => $request->sun_opening_time,
+            'closing_time' => $request->sun_closing_time
+        ];
+        Sunday::updateOrCreate($sun_identify,$sun_data);
+        // Monday
+        $mon_identify = ['shop_id' => $shop->id];
+        $mon_data = [
+            'shop_id' => $shop->id,
+            'opening_status' => $request->mon_opening_status,
+            'opening_time' => $request->mon_opening_time,
+            'closing_time' => $request->mon_closing_time
+        ];
+        Monday::updateOrCreate($mon_identify,$mon_data);
+        // Tuesday
+        $tues_identify = ['shop_id' => $shop->id];
+        $tues_data = [
+            'shop_id' => $shop->id,
+            'opening_status' => $request->tues_opening_status,
+            'opening_time' => $request->tues_opening_time,
+            'closing_time' => $request->tues_closing_time
+        ];
+        Tuesday::updateOrCreate($tues_identify,$tues_data);
+        // Wednesday
+        $wed_identify = ['shop_id' => $shop->id];
+        $wed_data = [
+            'shop_id' => $shop->id,
+            'opening_status' => $request->wed_opening_status,
+            'opening_time' => $request->wed_opening_time,
+            'closing_time' => $request->wed_closing_time
+        ];
+        Wednesday::updateOrCreate($wed_identify,$wed_data);
+        // Thursday
+        $thus_identify = ['shop_id' => $shop->id];
+        $thus_data = [
+            'shop_id' => $shop->id,
+            'opening_status' => $request->thus_opening_status,
+            'opening_time' => $request->thus_opening_time,
+            'closing_time' => $request->thus_closing_time
+        ];
+        Thursday::updateOrCreate($thus_identify,$thus_data);
+         // Friday
+        $fri_identify = ['shop_id' => $shop->id];
+        $fri_data = [
+            'shop_id' => $shop->id,
+            'opening_status' => $request->fri_opening_status,
+            'opening_time' => $request->fri_opening_time,
+            'closing_time' => $request->fri_closing_time
+        ];
+        Friday::updateOrCreate($fri_identify,$fri_data);
         
         Toastr::info('Shop Update Successfully');
         return redirect()->back(); 
@@ -189,6 +320,13 @@ class ShopController extends Controller
         Comment::whereIn('shop_id',$shop->pluck('id','id'))->delete();
         Follow::whereIn('shop_id',$shop->pluck('id','id'))->delete();
         Wishlist::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+        Saturday::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+        Sunday::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+        Monday::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+        Tuesday::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+        Wednesday::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+        Thursday::whereIn('shop_id',$shop->pluck('id','id'))->delete();
+        Friday::whereIn('shop_id',$shop->pluck('id','id'))->delete();
         $shop->delete();
         Toastr::success('Shop Removed Successfully');
         return redirect()->back(); 

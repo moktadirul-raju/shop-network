@@ -39,4 +39,32 @@ class Shop extends Model
     public function country(){
     	return $this->belongsTo(Country::class,'country_id','id');
     }
+
+    public function saturday(){
+        return $this->hasMany(Saturday::class,'shop_id','id');
+    }
+
+    public function sunday(){
+        return $this->hasMany(Sunday::class,'shop_id','id');
+    }
+
+    public function monday(){
+        return $this->hasMany(Monday::class,'shop_id','id');
+    }
+
+    public function tuesday(){
+        return $this->hasMany(Tuesday::class,'shop_id','id');
+    }
+
+    public function wednesday(){
+        return $this->hasMany(Wednesday::class,'shop_id','id');
+    }
+
+     public function thursday(){
+        return $this->hasMany(Thursday::class,'shop_id','id');
+    }
+
+    public function friday(){
+        return $this->hasMany(Friday::class,'shop_id','id');
+    }
 }

@@ -264,7 +264,13 @@ class DashboardController extends Controller
     }
 
     public function shopDetails($id){
-        $shop = Shop::findOrFail($id);
+        $data = Shop::where('id',$id);
+        $data->with([
+            'saturday'=>function($query){
+                $query->select('id','shop_id','day','opening_status','opening_time','closing_time');
+            }
+        ]);
+        $shop = $data->first();
         return view('admin.pages.shop_details',compact('shop'));
     }
 

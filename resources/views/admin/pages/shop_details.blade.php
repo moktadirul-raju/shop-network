@@ -144,7 +144,90 @@
 								<img src="{{ asset($shop->discount_qrcode_image) }}" class="img-responsive" alt="Image">
 							</th>
 						</tr>
-
+						<tr>
+							<th>Saturday</th>
+							<th>
+								@if(sizeof($shop->saturday)>0)
+								{{ $shop->saturday[0]->opening_status }},
+								{{ $shop->saturday[0]->opening_time }}-
+								{{ $shop->saturday[0]->closing_time }}
+								@else
+								{{ '' }}
+								@endif
+							</th>
+						</tr>
+						<tr>
+							<th>Sunday</th>
+							<th>
+								@if(sizeof($shop->sunday)>0)
+								{{ $shop->sunday[0]->opening_status }},
+								{{ $shop->sunday[0]->opening_time }}-
+								{{ $shop->sunday[0]->closing_time }}
+								@else
+								{{ '' }}
+								@endif
+							</th>
+						</tr>
+						<tr>
+							<th>Monday</th>
+							<th>
+								@if(sizeof($shop->monday)>0)
+								{{ $shop->monday[0]->opening_status }},
+								{{ $shop->monday[0]->opening_time }}-
+								{{ $shop->monday[0]->closing_time }}
+								@else
+								{{ '' }}
+								@endif
+							</th>
+						</tr>
+						<tr>
+							<th>Tuesday</th>
+							<th>
+								@if(sizeof($shop->tuesday)>0)
+								{{ $shop->tuesday[0]->opening_status }},
+								{{ $shop->tuesday[0]->opening_time }}-
+								{{ $shop->tuesday[0]->closing_time }}
+								@else
+								{{ '' }}
+								@endif
+							</th>
+						</tr>
+						<tr>
+							<th>Wednesday</th>
+							<th>
+								@if(sizeof($shop->wednesday)>0)
+								{{ $shop->wednesday[0]->opening_status }},
+								{{ $shop->wednesday[0]->opening_time }}-
+								{{ $shop->wednesday[0]->closing_time }}
+								@else
+								{{ '' }}
+								@endif
+							</th>
+						</tr>
+						<tr>
+							<th>Thursday</th>
+							<th>
+								@if(sizeof($shop->thursday)>0)
+								{{ $shop->thursday[0]->opening_status }},
+								{{ $shop->thursday[0]->opening_time }}-
+								{{ $shop->thursday[0]->closing_time }}
+								@else
+								{{ '' }}
+								@endif
+							</th>
+						</tr>
+						<tr>
+							<th>Friday</th>
+							<th>
+								@if(sizeof($shop->friday)>0)
+								{{ $shop->friday[0]->opening_status }},
+								{{ $shop->friday[0]->opening_time }}-
+								{{ $shop->friday[0]->closing_time }}
+								@else
+								{{ '' }}
+								@endif
+							</th>
+						</tr>
 					</thead>
 				</table>
 			</div>
