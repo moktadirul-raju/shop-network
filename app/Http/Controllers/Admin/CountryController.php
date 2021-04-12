@@ -58,7 +58,7 @@ class CountryController extends Controller
         $country = Country::find($id);
         $cities = City::where("Country_id",$id)->get();
         $countries = Country::all();
-        return view('admin.country.City',compact('country','cities','countries'));
+        return view('admin.country.city',compact('country','cities','countries'));
     }
 
     /**
