@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 11, 2021 at 07:07 PM
+-- Generation Time: Apr 12, 2021 at 12:07 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -258,6 +258,23 @@ CREATE TABLE `follows` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fridays`
+--
+
+CREATE TABLE `fridays` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `shop_id` int(11) DEFAULT NULL,
+  `day` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Friday',
+  `opening_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'open',
+  `opening_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `closing_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `header_images`
 --
 
@@ -342,7 +359,31 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (21, '2021_04_11_154155_create_in_app_purchases_table', 6),
 (22, '2021_04_11_181226_create_countries_table', 7),
 (23, '2021_04_11_181239_create_cities_table', 7),
-(24, '2021_04_11_184500_create_currencies_table', 8);
+(24, '2021_04_11_184500_create_currencies_table', 8),
+(39, '2021_04_12_074522_create_saturdays_table', 9),
+(40, '2021_04_12_074543_create_sundays_table', 9),
+(41, '2021_04_12_074623_create_mondays_table', 9),
+(42, '2021_04_12_074644_create_tuesdays_table', 9),
+(43, '2021_04_12_074718_create_wednesdays_table', 9),
+(44, '2021_04_12_074745_create_thursdays_table', 9),
+(45, '2021_04_12_074757_create_fridays_table', 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mondays`
+--
+
+CREATE TABLE `mondays` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `shop_id` int(11) DEFAULT NULL,
+  `day` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Monday',
+  `opening_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'open',
+  `opening_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `closing_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -456,6 +497,23 @@ CREATE TABLE `reviews` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `saturdays`
+--
+
+CREATE TABLE `saturdays` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `shop_id` int(11) DEFAULT NULL,
+  `day` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Saturday',
+  `opening_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'open',
+  `opening_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `closing_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `shops`
 --
 
@@ -499,8 +557,11 @@ CREATE TABLE `shops` (
 --
 
 INSERT INTO `shops` (`id`, `added_by`, `user_id`, `category_id`, `title`, `established_date`, `country_id`, `city`, `street_address`, `additional_address`, `zip_code`, `phone`, `fax`, `email`, `website`, `facebook_link`, `twitter_link`, `instagram_link`, `linkedin_link`, `youtube_link`, `description`, `min_price`, `max_price`, `discount`, `discount_qrcode_link`, `discount_qrcode_image`, `lat`, `lan`, `approve_status`, `view_count`, `created_at`, `updated_at`) VALUES
-(5, 'admin', 4, '1', 'Jara fashion', '12-02-18', '3', 'Rangpur', 'jahazcompany mor', 'jahazcompany mor', '5400', '123456987', '32644', 'fashion@shop.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'youtube.com', 'www.fashon.com', 350.00, 3000.00, '10%', 'http://koiva.mkraju.com/4/10%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 1, '0', '2021-04-10 23:58:28', '2021-04-11 13:05:13'),
-(6, NULL, 5, '2', 'Jara fashion', '12-02-18', '3', 'Rangpur', 'jahazcompany mor', 'jahazcompany mor', '5400', '123456987', '32644', 'fashion@shop.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'youtube.com', 'www.fashon.com', 350.00, 3000.00, '10%', 'http://koiva.mkraju.com/5/10%', 'images/qrcode/01889967515.jpg', '26544', '5454', 0, '0', '2021-04-10 23:59:22', '2021-04-10 23:59:22');
+(6, NULL, 5, '2', 'Jara fashion', '12-02-18', '3', 'Rangpur', 'jahazcompany mor', 'jahazcompany mor', '5400', '123456987', '32644', 'fashion@shop.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'youtube.com', 'www.fashon.com', 350.00, 3000.00, '10%', 'http://koiva.mkraju.com/5/10%', 'images/qrcode/01889967515.jpg', '26544', '5454', 0, '0', '2021-04-10 23:59:22', '2021-04-10 23:59:22'),
+(7, 'admin', 9, '3', 'Day Wise Check', '16/04/2021', '2', 'Rangpur', 'Rangpur', 'rangpur', '5452', '01889967519', '65695959', '01889967519@mail.com', '01889967519.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '01889967519', 600.00, 6000.00, '15%', 'http://koiva.mkraju.com/9/15%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', NULL, NULL, 0, '0', '2021-04-12 02:51:07', '2021-04-12 02:51:07'),
+(8, 'admin', 8, '2', 'check day', '16/03/2021', '2', 'Rangpur', 'Rangpur', 'rangpur', '5452', '01889967518', '65695959', '01889967518@mail.com', '01889967518.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '01889967518', 600.00, 5885.00, '15%', 'http://koiva.mkraju.com/8/15%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 0, '0', '2021-04-12 03:04:58', '2021-04-12 03:04:58'),
+(9, 'admin', 7, '1', 'check day 2', '09/03/2021', '3', 'Jolpaiguri', 'dhaka', 'dhaka', '5895', '01889967517', '01889967517', '01889967517@mail.com', '01889967517.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '0188996751701889967517', 1000.00, 10000.00, '20%', 'http://koiva.mkraju.com/7/20%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 0, '0', '2021-04-12 03:11:38', '2021-04-12 05:37:51'),
+(10, 'admin', 6, '1', 'check day 3', '07/03/2021', '2', 'Rangpur', 'Rangpur', 'rangpur', '5452', '01889967516', '01889967516', '01889967516@mail.com', '01889967516.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '018899675160188996751601889967516', 520.00, 5698.00, '25%', 'http://koiva.mkraju.com/6/25%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 0, '0', '2021-04-12 03:25:25', '2021-04-12 03:25:25');
 
 -- --------------------------------------------------------
 
@@ -525,7 +586,15 @@ INSERT INTO `shop_facilities` (`id`, `shop_id`, `facility_id`, `created_at`, `up
 (4, 1, '5', '2021-04-10 23:58:28', '2021-04-10 23:58:28'),
 (5, 2, '5', '2021-04-10 23:58:28', '2021-04-10 23:58:28'),
 (6, 1, '6', '2021-04-10 23:59:22', '2021-04-10 23:59:22'),
-(7, 2, '6', '2021-04-10 23:59:22', '2021-04-10 23:59:22');
+(7, 2, '6', '2021-04-10 23:59:22', '2021-04-10 23:59:22'),
+(8, 1, '7', '2021-04-12 02:51:07', '2021-04-12 02:51:07'),
+(9, 2, '7', '2021-04-12 02:51:07', '2021-04-12 02:51:07'),
+(10, 1, '8', '2021-04-12 03:04:58', '2021-04-12 03:04:58'),
+(11, 2, '8', '2021-04-12 03:04:58', '2021-04-12 03:04:58'),
+(12, 1, '9', '2021-04-12 03:11:38', '2021-04-12 03:11:38'),
+(13, 2, '9', '2021-04-12 03:11:38', '2021-04-12 03:11:38'),
+(14, 1, '10', '2021-04-12 03:25:25', '2021-04-12 03:25:25'),
+(15, 2, '10', '2021-04-12 03:25:25', '2021-04-12 03:25:25');
 
 -- --------------------------------------------------------
 
@@ -546,9 +615,72 @@ CREATE TABLE `shop_images` (
 --
 
 INSERT INTO `shop_images` (`id`, `shop_id`, `image`, `created_at`, `updated_at`) VALUES
-(12, 5, 'images/shop/1618120708pexels-photo-264636.jpeg', '2021-04-10 23:58:28', '2021-04-10 23:58:28'),
 (14, 6, 'images/shop/1618120762pexels-photo-264636.jpeg', '2021-04-10 23:59:22', '2021-04-10 23:59:22'),
-(15, 6, 'images/shop/1618120762shopping-cart-supermarket-empty-shelves-40320116.jpg', '2021-04-10 23:59:22', '2021-04-10 23:59:22');
+(15, 6, 'images/shop/1618120762shopping-cart-supermarket-empty-shelves-40320116.jpg', '2021-04-10 23:59:22', '2021-04-10 23:59:22'),
+(16, 7, 'images/shop/1618217467gettyimages-1141999659-612x612.jpg', '2021-04-12 02:51:07', '2021-04-12 02:51:07'),
+(17, 7, 'images/shop/1618217467pexels-photo-264636.jpeg', '2021-04-12 02:51:07', '2021-04-12 02:51:07'),
+(18, 7, 'images/shop/1618217467photo-1534723452862-4c874018d66d.jpg', '2021-04-12 02:51:08', '2021-04-12 02:51:08'),
+(19, 8, 'images/shop/1618218298photo-1534723452862-4c874018d66d.jpg', '2021-04-12 03:04:58', '2021-04-12 03:04:58'),
+(20, 8, 'images/shop/1618218298photo-1540340061722-9293d5163008.jpg', '2021-04-12 03:04:58', '2021-04-12 03:04:58'),
+(21, 8, 'images/shop/1618218298shopping-cart-supermarket-empty-shelves-40320116.jpg', '2021-04-12 03:04:58', '2021-04-12 03:04:58'),
+(22, 9, 'images/shop/1618218699pexels-photo-264636.jpeg', '2021-04-12 03:11:39', '2021-04-12 03:11:39'),
+(23, 9, 'images/shop/1618218699photo-1534723452862-4c874018d66d.jpg', '2021-04-12 03:11:39', '2021-04-12 03:11:39'),
+(24, 9, 'images/shop/1618218699photo-1540340061722-9293d5163008.jpg', '2021-04-12 03:11:39', '2021-04-12 03:11:39'),
+(25, 9, 'images/shop/1618218699shopping-cart-supermarket-empty-shelves-40320116.jpg', '2021-04-12 03:11:39', '2021-04-12 03:11:39'),
+(26, 10, 'images/shop/1618219525gettyimages-1141999659-612x612.jpg', '2021-04-12 03:25:26', '2021-04-12 03:25:26'),
+(27, 10, 'images/shop/1618219526pexels-photo-264636.jpeg', '2021-04-12 03:25:26', '2021-04-12 03:25:26'),
+(28, 10, 'images/shop/1618219526photo-1534723452862-4c874018d66d.jpg', '2021-04-12 03:25:26', '2021-04-12 03:25:26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sundays`
+--
+
+CREATE TABLE `sundays` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `shop_id` int(11) DEFAULT NULL,
+  `day` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Sunday',
+  `opening_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'open',
+  `opening_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `closing_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `thursdays`
+--
+
+CREATE TABLE `thursdays` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `shop_id` int(11) DEFAULT NULL,
+  `day` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Thursday',
+  `opening_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'open',
+  `opening_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `closing_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tuesdays`
+--
+
+CREATE TABLE `tuesdays` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `shop_id` int(11) DEFAULT NULL,
+  `day` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Tuesday',
+  `opening_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'open',
+  `opening_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `closing_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -584,6 +716,23 @@ INSERT INTO `users` (`id`, `name`, `nickname`, `email`, `mobile`, `image`, `emai
 (7, 'Check', NULL, NULL, '01889967517', NULL, NULL, '$2y$10$RE4vWptEmwqNnLbWSYG7N.OOt/rTjEdy66LHu0OTstcHXE8gjEaee', NULL, 0, 0, NULL, '2021-04-10 23:56:10', '2021-04-10 23:56:10'),
 (8, 'Check', NULL, NULL, '01889967518', NULL, NULL, '$2y$10$IybD4LeyVzpNCUXK8y3g5.RWRDDg9ywogbYg6HbIkLw96lt0QW5R2', NULL, 0, 0, NULL, '2021-04-10 23:56:15', '2021-04-10 23:56:15'),
 (9, 'Check', NULL, NULL, '01889967519', NULL, NULL, '$2y$10$lFA6zffZQRfpnxQgc9d3POt.MK92f56VGuWeV0JLl4qEzDIxh3wVm', NULL, 0, 0, NULL, '2021-04-10 23:56:19', '2021-04-10 23:56:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wednesdays`
+--
+
+CREATE TABLE `wednesdays` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `shop_id` int(11) DEFAULT NULL,
+  `day` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Wednesday',
+  `opening_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'open',
+  `opening_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `closing_time` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -670,6 +819,12 @@ ALTER TABLE `follows`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `fridays`
+--
+ALTER TABLE `fridays`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `header_images`
 --
 ALTER TABLE `header_images`
@@ -685,6 +840,12 @@ ALTER TABLE `in_app_purchases`
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mondays`
+--
+ALTER TABLE `mondays`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -724,6 +885,12 @@ ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `saturdays`
+--
+ALTER TABLE `saturdays`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `shops`
 --
 ALTER TABLE `shops`
@@ -742,12 +909,36 @@ ALTER TABLE `shop_images`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sundays`
+--
+ALTER TABLE `sundays`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `thursdays`
+--
+ALTER TABLE `thursdays`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tuesdays`
+--
+ALTER TABLE `tuesdays`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_mobile_unique` (`mobile`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `wednesdays`
+--
+ALTER TABLE `wednesdays`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `wishlists`
@@ -826,6 +1017,12 @@ ALTER TABLE `follows`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `fridays`
+--
+ALTER TABLE `fridays`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `header_images`
 --
 ALTER TABLE `header_images`
@@ -835,13 +1032,19 @@ ALTER TABLE `header_images`
 -- AUTO_INCREMENT for table `in_app_purchases`
 --
 ALTER TABLE `in_app_purchases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT for table `mondays`
+--
+ALTER TABLE `mondays`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -874,28 +1077,58 @@ ALTER TABLE `reviews`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `saturdays`
+--
+ALTER TABLE `saturdays`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `shops`
 --
 ALTER TABLE `shops`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `shop_facilities`
 --
 ALTER TABLE `shop_facilities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `shop_images`
 --
 ALTER TABLE `shop_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `sundays`
+--
+ALTER TABLE `sundays`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `thursdays`
+--
+ALTER TABLE `thursdays`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tuesdays`
+--
+ALTER TABLE `tuesdays`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `wednesdays`
+--
+ALTER TABLE `wednesdays`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `wishlists`
