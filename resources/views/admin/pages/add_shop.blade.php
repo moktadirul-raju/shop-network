@@ -109,19 +109,35 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-3">
+						@php
+							$currencies = DB::table('currencies')->get();
+						@endphp
+						<div class="form-group">
+							<label for="">Currency</label>
+							<select name="currency_id" class="single form-control">
+							<option value="">Select Country</option>
+							@foreach($currencies as $currency)
+							<option value="{{ $currency->id }}">
+								{{ $currency->currency }}
+							</option>
+							@endforeach
+						</select>
+						</div>
+					</div>
+					<div class="col-md-3">
 						<div class="form-group">
 							<label for="">Minimum Price</label>
 							<input class="form-control" name="min_price" id="demoDate" type="text" placeholder="Minimum Price">
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label for="">Maximum Price</label>
 							<input type="text" name="max_price" class="form-control" placeholder="Maximum Price">
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<div class="form-group">
 							<label for="">Discount</label>
 							<input type="text" name="discount" class="form-control" placeholder="Discount">

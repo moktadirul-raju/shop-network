@@ -35,6 +35,7 @@ class CreateShopsTable extends Migration
             $table->string('linkedin_link')->nullable();
             $table->string('youtube_link')->nullable();
             $table->string('description')->nullable();
+            $table->integer('currency_id')->nullable();
             $table->double('min_price',8,2)->nullable();
             $table->double('max_price',8,2)->nullable();
             $table->string('discount')->nullable();

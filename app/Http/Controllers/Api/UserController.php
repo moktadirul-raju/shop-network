@@ -19,19 +19,50 @@ class UserController extends Controller
 
     public $successStatus = 200;
 
-    public function login(Request $request){
+    // public function login(Request $request){
+    //     $validator = Validator::make($request->all(), [
+    //         'email' => 'required',
+    //         'password' => 'required|string|min:6',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json($validator->errors(), 422);
+    //     }
+
+    //     if (!$token = JWTAuth::attempt($validator->validated())) {
+    //         return response()->json(['error' => 'Unauthorized'], 401);
+    //     }
+
+    //     return $this->createNewToken($token);
+    // }
+
+    // Login With Email Or Mobile
+     public function login(Request $request){
         $validator = Validator::make($request->all(), [
-            'mobile' => 'required',
+            'email_or_mobile' => 'required',
             'password' => 'required|string|min:6',
         ]);
+
+        if(is_numeric($request->get('email_or_mobile'))){
+            $credintials = [
+                'mobile'=>$request->get('email_or_mobile'),
+                'password'=>$request->get('password')
+            ];
+          }
+          elseif (filter_var($request->get('email_or_mobile'), FILTER_VALIDATE_EMAIL)) {
+            $credintials = [
+                'email' => $request->get('email_or_mobile'), 
+                'password'=>$request->get('password')
+            ];
+          }
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
 
-        if (!$token = JWTAuth::attempt($validator->validated())) {
+        if (!$token = JWTAuth::attempt($credintials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
-        }
+        } 
 
         return $this->createNewToken($token);
     }
