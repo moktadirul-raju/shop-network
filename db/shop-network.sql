@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 12, 2021 at 12:07 PM
+-- Generation Time: Apr 13, 2021 at 05:09 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -272,6 +272,13 @@ CREATE TABLE `fridays` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `fridays`
+--
+
+INSERT INTO `fridays` (`id`, `shop_id`, `day`, `opening_status`, `opening_time`, `closing_time`, `created_at`, `updated_at`) VALUES
+(1, 9, 'Friday', 'open', NULL, NULL, '2021-04-13 11:02:55', '2021-04-13 11:02:55');
+
 -- --------------------------------------------------------
 
 --
@@ -384,6 +391,13 @@ CREATE TABLE `mondays` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `mondays`
+--
+
+INSERT INTO `mondays` (`id`, `shop_id`, `day`, `opening_status`, `opening_time`, `closing_time`, `created_at`, `updated_at`) VALUES
+(1, 9, 'Monday', 'open', NULL, NULL, '2021-04-13 11:02:55', '2021-04-13 11:02:55');
 
 -- --------------------------------------------------------
 
@@ -511,6 +525,13 @@ CREATE TABLE `saturdays` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `saturdays`
+--
+
+INSERT INTO `saturdays` (`id`, `shop_id`, `day`, `opening_status`, `opening_time`, `closing_time`, `created_at`, `updated_at`) VALUES
+(1, 9, 'Saturday', 'open', NULL, NULL, '2021-04-13 11:02:55', '2021-04-13 11:02:55');
+
 -- --------------------------------------------------------
 
 --
@@ -539,6 +560,7 @@ CREATE TABLE `shops` (
   `linkedin_link` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `youtube_link` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `currency_id` int(191) DEFAULT NULL,
   `min_price` double(8,2) DEFAULT NULL,
   `max_price` double(8,2) DEFAULT NULL,
   `discount` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -556,12 +578,12 @@ CREATE TABLE `shops` (
 -- Dumping data for table `shops`
 --
 
-INSERT INTO `shops` (`id`, `added_by`, `user_id`, `category_id`, `title`, `established_date`, `country_id`, `city`, `street_address`, `additional_address`, `zip_code`, `phone`, `fax`, `email`, `website`, `facebook_link`, `twitter_link`, `instagram_link`, `linkedin_link`, `youtube_link`, `description`, `min_price`, `max_price`, `discount`, `discount_qrcode_link`, `discount_qrcode_image`, `lat`, `lan`, `approve_status`, `view_count`, `created_at`, `updated_at`) VALUES
-(6, NULL, 5, '2', 'Jara fashion', '12-02-18', '3', 'Rangpur', 'jahazcompany mor', 'jahazcompany mor', '5400', '123456987', '32644', 'fashion@shop.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'youtube.com', 'www.fashon.com', 350.00, 3000.00, '10%', 'http://koiva.mkraju.com/5/10%', 'images/qrcode/01889967515.jpg', '26544', '5454', 0, '0', '2021-04-10 23:59:22', '2021-04-10 23:59:22'),
-(7, 'admin', 9, '3', 'Day Wise Check', '16/04/2021', '2', 'Rangpur', 'Rangpur', 'rangpur', '5452', '01889967519', '65695959', '01889967519@mail.com', '01889967519.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '01889967519', 600.00, 6000.00, '15%', 'http://koiva.mkraju.com/9/15%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', NULL, NULL, 0, '0', '2021-04-12 02:51:07', '2021-04-12 02:51:07'),
-(8, 'admin', 8, '2', 'check day', '16/03/2021', '2', 'Rangpur', 'Rangpur', 'rangpur', '5452', '01889967518', '65695959', '01889967518@mail.com', '01889967518.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '01889967518', 600.00, 5885.00, '15%', 'http://koiva.mkraju.com/8/15%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 0, '0', '2021-04-12 03:04:58', '2021-04-12 03:04:58'),
-(9, 'admin', 7, '1', 'check day 2', '09/03/2021', '3', 'Jolpaiguri', 'dhaka', 'dhaka', '5895', '01889967517', '01889967517', '01889967517@mail.com', '01889967517.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '0188996751701889967517', 1000.00, 10000.00, '20%', 'http://koiva.mkraju.com/7/20%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 0, '0', '2021-04-12 03:11:38', '2021-04-12 05:37:51'),
-(10, 'admin', 6, '1', 'check day 3', '07/03/2021', '2', 'Rangpur', 'Rangpur', 'rangpur', '5452', '01889967516', '01889967516', '01889967516@mail.com', '01889967516.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '018899675160188996751601889967516', 520.00, 5698.00, '25%', 'http://koiva.mkraju.com/6/25%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 0, '0', '2021-04-12 03:25:25', '2021-04-12 03:25:25');
+INSERT INTO `shops` (`id`, `added_by`, `user_id`, `category_id`, `title`, `established_date`, `country_id`, `city`, `street_address`, `additional_address`, `zip_code`, `phone`, `fax`, `email`, `website`, `facebook_link`, `twitter_link`, `instagram_link`, `linkedin_link`, `youtube_link`, `description`, `currency_id`, `min_price`, `max_price`, `discount`, `discount_qrcode_link`, `discount_qrcode_image`, `lat`, `lan`, `approve_status`, `view_count`, `created_at`, `updated_at`) VALUES
+(6, NULL, 5, '2', 'Jara fashion', '12-02-18', '3', 'Rangpur', 'jahazcompany mor', 'jahazcompany mor', '5400', '123456987', '32644', 'fashion@shop.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'www.fashon.com', 'youtube.com', 'www.fashon.com', 1, 350.00, 3000.00, '10%', 'http://koiva.mkraju.com/5/10%', 'images/qrcode/01889967515.jpg', '26544', '5454', 0, '0', '2021-04-10 23:59:22', '2021-04-10 23:59:22'),
+(7, 'admin', 9, '3', 'Day Wise Check', '16/04/2021', '2', 'Rangpur', 'Rangpur', 'rangpur', '5452', '01889967519', '65695959', '01889967519@mail.com', '01889967519.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '01889967519', 1, 600.00, 6000.00, '15%', 'http://koiva.mkraju.com/9/15%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', NULL, NULL, 0, '0', '2021-04-12 02:51:07', '2021-04-12 02:51:07'),
+(8, 'admin', 8, '2', 'check day', '16/03/2021', '2', 'Rangpur', 'Rangpur', 'rangpur', '5452', '01889967518', '65695959', '01889967518@mail.com', '01889967518.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '01889967518', 1, 600.00, 5885.00, '15%', 'http://koiva.mkraju.com/8/15%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 0, '0', '2021-04-12 03:04:58', '2021-04-12 03:04:58'),
+(9, 'admin', 7, '1', 'check day 2', '09/03/2021', '3', 'Jolpaiguri', 'dhaka', 'dhaka', '5895', '01889967517', '01889967517', '01889967517@mail.com', '01889967517.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '0188996751701889967517', 1, 1000.00, 10000.00, '20%', 'http://koiva.mkraju.com/7/20%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 0, '0', '2021-04-12 03:11:38', '2021-04-13 11:03:54'),
+(10, 'admin', 6, '1', 'check day 3', '07/03/2021', '2', 'Rangpur', 'Rangpur', 'rangpur', '5452', '01889967516', '01889967516', '01889967516@mail.com', '01889967516.com', 'facebook.com', 'twittr.com', 'instagram.com', 'linkedin.com', 'youtube.com', '018899675160188996751601889967516', 1, 520.00, 5698.00, '25%', 'http://koiva.mkraju.com/6/25%', 'images/qrcode/b1_only_words_72_media_huge_thumbnail.jpg.jpg', '465464', '6546546', 0, '0', '2021-04-12 03:25:25', '2021-04-12 03:25:25');
 
 -- --------------------------------------------------------
 
@@ -648,6 +670,13 @@ CREATE TABLE `sundays` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sundays`
+--
+
+INSERT INTO `sundays` (`id`, `shop_id`, `day`, `opening_status`, `opening_time`, `closing_time`, `created_at`, `updated_at`) VALUES
+(1, 9, 'Sunday', 'open', NULL, NULL, '2021-04-13 11:02:55', '2021-04-13 11:02:55');
+
 -- --------------------------------------------------------
 
 --
@@ -665,6 +694,13 @@ CREATE TABLE `thursdays` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `thursdays`
+--
+
+INSERT INTO `thursdays` (`id`, `shop_id`, `day`, `opening_status`, `opening_time`, `closing_time`, `created_at`, `updated_at`) VALUES
+(1, 9, 'Thursday', 'open', NULL, NULL, '2021-04-13 11:02:55', '2021-04-13 11:02:55');
+
 -- --------------------------------------------------------
 
 --
@@ -681,6 +717,13 @@ CREATE TABLE `tuesdays` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tuesdays`
+--
+
+INSERT INTO `tuesdays` (`id`, `shop_id`, `day`, `opening_status`, `opening_time`, `closing_time`, `created_at`, `updated_at`) VALUES
+(1, 9, 'Tuesday', 'open', NULL, NULL, '2021-04-13 11:02:55', '2021-04-13 11:02:55');
 
 -- --------------------------------------------------------
 
@@ -733,6 +776,13 @@ CREATE TABLE `wednesdays` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wednesdays`
+--
+
+INSERT INTO `wednesdays` (`id`, `shop_id`, `day`, `opening_status`, `opening_time`, `closing_time`, `created_at`, `updated_at`) VALUES
+(1, 9, 'Wednesday', 'open', NULL, NULL, '2021-04-13 11:02:55', '2021-04-13 11:02:55');
 
 -- --------------------------------------------------------
 
@@ -1020,7 +1070,7 @@ ALTER TABLE `follows`
 -- AUTO_INCREMENT for table `fridays`
 --
 ALTER TABLE `fridays`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `header_images`
@@ -1044,7 +1094,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `mondays`
 --
 ALTER TABLE `mondays`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -1080,7 +1130,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `saturdays`
 --
 ALTER TABLE `saturdays`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `shops`
@@ -1104,19 +1154,19 @@ ALTER TABLE `shop_images`
 -- AUTO_INCREMENT for table `sundays`
 --
 ALTER TABLE `sundays`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `thursdays`
 --
 ALTER TABLE `thursdays`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tuesdays`
 --
 ALTER TABLE `tuesdays`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1128,7 +1178,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `wednesdays`
 --
 ALTER TABLE `wednesdays`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `wishlists`
