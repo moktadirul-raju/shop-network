@@ -115,14 +115,15 @@
 						@endphp
 						<div class="form-group">
 							<label for="">Currency</label>
-							<select name="currency_id" class="single form-control">
+							<input type="text" name="currency" class="form-control" placeholder="Currency">
+							{{-- <select name="currency_id" class="single form-control">
 							<option value="">Select Country</option>
 							@foreach($currencies as $currency)
 							<option value="{{ $currency->id }}">
 								{{ $currency->currency }}
 							</option>
 							@endforeach
-						</select>
+						</select> --}}
 						</div>
 					</div>
 					<div class="col-md-3">

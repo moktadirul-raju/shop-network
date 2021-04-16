@@ -69,7 +69,7 @@ class ShopController extends Controller
         $shop->email = $request->email;
         $shop->website = $request->website;
         $shop->description = $request->description;
-        $shop->currency_id = $request->currency_id;
+        $shop->currency = $request->currency;
         $shop->min_price = $request->min_price;
         $shop->max_price = $request->max_price;
         if($request->discount){
@@ -205,7 +205,7 @@ class ShopController extends Controller
         $shop->email = $request->email;
         $shop->website = $request->website;
         $shop->description = $request->description;
-        $shop->currency_id = $request->currency_id;
+        $shop->currency = $request->currency;
         $shop->min_price = $request->min_price;
         $shop->max_price = $request->max_price;
         if($request->discount){

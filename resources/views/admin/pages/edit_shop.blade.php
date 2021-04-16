@@ -119,7 +119,8 @@
 					@endphp
 					<div class="col-md-3">
 						<label for="">Currency</label>
-						<select name="currency_id" id="" class="single form-control" style="width: 100%;">
+						<input type="text" name="currency" value="{{ $shop->currency }}" class="form-control">
+						{{-- <select name="currency_id" id="" class="single form-control" style="width: 100%;">
 							@if($shop->currency_id != null)
 								<option value="{{ $shop->currency_id }}">{{ $shop->currency->currency }}</option>
 							@else
@@ -130,7 +131,7 @@
 								{{ $currency->currency }}
 							</option>
 							@endforeach
-						</select>
+						</select> --}}
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">

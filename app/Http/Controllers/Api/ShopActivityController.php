@@ -31,9 +31,6 @@ class ShopActivityController extends Controller
 	public function allShop(){
 		$data = Shop::query();
         $data->with([
-            'currency'=>function($query){
-                $query->select('id','currency');
-            },
             'category'=>function($query){
                 $query->select('id','category');
             },
@@ -109,9 +106,6 @@ class ShopActivityController extends Controller
     public function shopDetails($id){
         $data = Shop::where('id',$id);
         $data->with([
-            'currency'=>function($query){
-                $query->select('id','currency');
-            },
             'category'=>function($query){
                 $query->select('id','category');
             },
@@ -234,7 +228,7 @@ class ShopActivityController extends Controller
         $shop->email = $request->email;
         $shop->website = $request->website;
         $shop->description = $request->description;
-        $shop->currency_id = $request->currency_id;
+        $shop->currency = $request->currency;
         $shop->min_price = $request->min_price;
         $shop->max_price = $request->max_price;
         if($request->discount){
@@ -355,7 +349,7 @@ class ShopActivityController extends Controller
         $shop->email = $request->email;
         $shop->website = $request->website;
         $shop->description = $request->description;
-        $shop->currency_id = $request->currency_id;
+        $shop->currency = $request->currency;
         $shop->min_price = $request->min_price;
         $shop->max_price = $request->max_price;
         if($request->discount){
@@ -488,9 +482,6 @@ class ShopActivityController extends Controller
                 ->orWhere('lat','LIKE',"%$query%")
                 ->orWhere('lan','LIKE',"%$query%");
         $shop->with([
-            'currency'=>function($query){
-                $query->select('id','currency');
-            },
             'category'=>function($query){
                 $query->select('id','category');
             },
