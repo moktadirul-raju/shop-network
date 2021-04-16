@@ -236,9 +236,7 @@
 					</div>
 					<div class="col-md-6">
 						<label for="description">Description</label>
-						<textarea name="description" id="" cols="30" rows="1" class="form-control">
-							{{ $shop->description }}
-						</textarea>
+						<textarea name="description" id="" cols="30" rows="1" class="form-control">{{ $shop->description }}</textarea>
 					</div>
 				</div>
 				<div class="row">
