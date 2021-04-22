@@ -60,7 +60,7 @@
 						<div class="form-group">
 							<label for="">City</label>
 							<select name="city" class="single form-control"
-									id="city" onchange="getLatLan()">
+									id="city">
 								<optgroup>
 									<option value="" >Select City</option>
 								</optgroup>
@@ -422,17 +422,6 @@
       	autoclose: true,
       	todayHighlight: true
       });
-
-	function getLatLan(){
-		var selectedText = $("#city option:selected").html();
-        alert(selectedText);
-		axios.get(`/api/get-city/${id}`)
-        .then(function (response) {
-            console.log(response.results[0].geometry.location.lat);
-     		console.log(response.results[0].geometry.location.lng);
-        });
-		
-	}
 
 	function getCity(){
         $('#city') .find('option') .remove() .end() .append('<option value="">Select City</option>');
