@@ -60,7 +60,7 @@
 						<div class="form-group">
 							<label for="">City</label>
 							<select name="city" class="single form-control"
-									id="city" onchange="getLatLan()">
+									id="city">
 								<optgroup>
 									<option value="" >Select City</option>
 								</optgroup>
@@ -213,23 +213,16 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12">
-						<input type="text" id="address-input" name="address_address" class="form-control map-input">
-					</div>
-				</div>
-				<div class="row">
 					<div class="col-md-3">
 						<label for="">Latitude</label>
-						<input type="text" name="lat" id="address-latitude" class="form-control" placeholder="Latitude">
+						<input type="text" name="lat" class="form-control" placeholder="Latitude">
 					</div>
 					<div class="col-md-3">
 						<label for="">Longitude</label>
-						<input type="text" name="lan" id="address-longitude" class="form-control" placeholder="Longitude">
+						<input type="text" name="lan" class="form-control" placeholder="Longitude">
 					</div>
 					<div class="col-md-6">
-						<div id="address-map-container" style="width:100%;height:400px; ">
-						    <div style="width: 100%; height: 100%" id="address-map"></div>
-						</div>
+						<h2>Map View</h2>
 					</div>
 				</div>
 				<div class="row">
@@ -419,10 +412,7 @@
 @endsection
 
 @push('js')
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize" async defer></script>
-    <script src="{{ asset('assets/admin/js/map/map.js') }}"></script>
 <script>
-
 	$(document).ready(function() {
 	    $('.single').select2();
 	    $('.multiple').select2();
@@ -432,17 +422,6 @@
       	autoclose: true,
       	todayHighlight: true
       });
-
-	function getLatLan(){
-		var selectedText = $("#city option:selected").html();
-        alert(selectedText);
-		axios.get(`/api/get-city/${id}`)
-        .then(function (response) {
-            console.log(response.results[0].geometry.location.lat);
-     		console.log(response.results[0].geometry.location.lng);
-        });
-		
-	}
 
 	function getCity(){
         $('#city') .find('option') .remove() .end() .append('<option value="">Select City</option>');
