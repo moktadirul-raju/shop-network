@@ -32,7 +32,7 @@ Route::get('get-lat-lan',function(){
 	$key = 'AIzaSyCOzORtiZKs1_ukE9C4p8SPZqIjHTljdDs';
 	// $address = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?latlng=44.4647452,7.3553838&key='.urlencode($key));
 	// return $address;
-	$latLan = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($address).'&key='.urlencode($key));
+	$latLan = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.$address.'&key='.urlencode($key));
 	return $latLan;
 
 	// GET LAT LAN BY ADDRESS
