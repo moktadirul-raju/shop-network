@@ -37,7 +37,7 @@ class UserController extends Controller
     // }
 
     // Login With Email Or Mobile
-     public function login(Request $request){
+    public function login(Request $request){
         $validator = Validator::make($request->all(), [
             'email_or_mobile' => 'required',
             'password' => 'required|string|min:6',
